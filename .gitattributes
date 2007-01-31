@@ -1,0 +1,7 @@
+* text=auto !eol
+/block_links.php -text
+/config_global.html -text
+/config_global_action.php -text
+db/mysql.php -text
+db/mysql.sql -text
+lang/en_utf8/block_links.php -text
