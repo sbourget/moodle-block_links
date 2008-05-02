@@ -2,11 +2,12 @@
 
 /* Reference block by Tom Flannaghan and Andrew Walker - Alton College */
 /* Modified by Sean Madden - RIT for Goffstown School District */
+/* Rebuilt for Moodle 1.8 by Stephen Bourget - Goffstown School District */
 
     class block_links extends block_list {
         function init() {
             $this->title = "Links";
-            $this->version = 2006053011;
+            $this->version = 2008050100;
         }
         
         function specialization() {
@@ -45,8 +46,15 @@
                     $this->add_link($link);
                 }
             }
-            
-			if (isadmin()) {
+
+         if(empty($this->instance->pinned)) {
+             $context = get_context_instance(CONTEXT_BLOCK, $this->instance->id);
+         } 
+         else {
+             $context = get_context_instance(CONTEXT_SYSTEM); //Pinned blocks do not have own context
+         }
+         if((has_capability('moodle/site:manageblocks', $context)) && (has_capability('block/links:managelinks', $context))) {
+//			if (isadmin()) {
 				$link->url = $CFG->wwwroot."/blocks/links/config_global_action.php";
 				$link->linktext = "<b>".get_string('manage_links', 'block_links')."</b>";
 				$link->notes = "";

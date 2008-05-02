@@ -5,7 +5,9 @@ require_once('../../config.php');
 global $USER;
 
 require_login();
-if (!isadmin()) {
+//if (!isadmin()) {
+$context = get_context_instance(CONTEXT_SYSTEM);
+if((!has_capability('moodle/site:manageblocks', $context)) || (!has_capability('block/links:managelinks', $context))) {
     error('ACCESS DENIED.');
 }
 
@@ -37,15 +39,14 @@ if (isset($_POST['save'])) {
 }
 
 
-$strconfiguration = get_string('configuration');
-$stradmin = get_string('admin');
-$strmanagelinks = get_string('manage_links', 'block_links');
+$stradmin = get_string('administration');
+$strmodules = get_string('managemodules');
+$strblocks = get_string('blocks');
+$strmanagelinks = get_string('managelinks', 'block_links');
 $strlinks = get_string('links', 'block_links');
 $stradd = get_string('addlink', 'block_links');
+$navigation = "$stradmin -> $strmodules -> $strblocks -> $strlinks -> $strmanagelinks";
 
-
-$navigation = "<a href=\"$CFG->wwwroot/$CFG->admin/index.php\">$stradmin</a> -> ".
-    "<a href=\"$CFG->wwwroot/$CFG->admin/configure.php\">$strconfiguration</a> -> $strmanagelinks";
     
 $rs = get_records('block_links');
 if (!is_array($rs)) {
@@ -83,8 +84,8 @@ if ($editform || $add != -1) {
 }
 $content .= "</div>\n";
 
+print_header_simple($strmanagelinks, $strmanagelinks, $navigation);
 
-print_header($strmanagelinks, $strmanagelinks, $navigation);
 echo $content;
 print_footer();
 
@@ -132,7 +133,7 @@ function link_table_row($link, $row = 0) {
     }
     $content .= "</td>\n";          
     $content .= "<td>";
-	$content .= $link->department;
+    $content .= $link->department;
     $content .= "</td>";
     $content .= "    <td><a href=\"?modify=$link->id\" title=\"$strmodify\"><img src=\"$CFG->pixpath/t/edit.gif\" alt=\"$strmodify\" /></a> <a href=\"?delete=$link->id\" title=\"$strdelete\"><img src=\"$CFG->pixpath/t/delete.gif\" alt=\"$strdelete\" /></a></td>\n";           
     $content .= "  </tr>\n";
