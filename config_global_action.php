@@ -5,7 +5,6 @@ require_once('../../config.php');
 global $USER;
 
 require_login();
-//if (!isadmin()) {
 $context = get_context_instance(CONTEXT_SYSTEM);
 if((!has_capability('moodle/site:manageblocks', $context)) || (!has_capability('block/links:managelinks', $context))) {
     error('ACCESS DENIED.');
@@ -58,7 +57,7 @@ if (count($rs) == 0) {
     $add = 1;
 }
 
-$content  = "<div id=\"content\">\n  <h2 class=\"main\">$strmanagelinks</h2>\n";
+$content  = '<div id="content">'."\n".'  <h2 class="main">'.$strmanagelinks.'</h2>'."\n";
 $content .= link_table_headings();
 
 $editform = false;
@@ -75,14 +74,14 @@ foreach ($rs as $index => $link) {
 if ($add != -1) {
     $content .= link_modify_form('', $row);
 } else {
-    $content .= "  <tr>\n   <td colspan=\"6\" align=\"center\"><hr /><a href=\"?add=true\">$stradd</a></td>\n  </tr>\n";
+    $content .= '  <tr>'."\n".'   <td colspan="6" align="center"><hr /><a href="?add=true">'.$stradd.'</a></td>'."\n".'  </tr>'."\n";
 }
-$content .= "</table>\n";
+$content .= '</table>'."\n";
 
 if ($editform || $add != -1) {
-    $content = "<form method=\"post\" action=\"?\">" . $content . "</form>\n";
+    $content = '<form method="post" action="?">' . $content . '</form>'."\n";
 }
-$content .= "</div>\n";
+$content .= '</div>'."\n";
 
 print_header_simple($strmanagelinks, $strmanagelinks, $navigation);
 
@@ -100,14 +99,14 @@ function link_table_headings() {
     $strcatagory = get_string('catagory', 'block_links');
     $stractions = get_string('actions', 'block_links');
     
-    $content  = "  <table class=\"generaltable generalbox\" align=\"center\" cellpadding=\"5\">\n    <tr>\n";
-    $content .= "      <th class=\"header c0\" scope=\"col\">$strlinktext</th>\n";
-    $content .= "      <th class=\"header c1\" scope=\"col\">$strurl</th>\n";
-    $content .= "      <th class=\"header c2\" scope=\"col\">$strnotes</th>\n";
-    $content .= "      <th class=\"header c3\" scope=\"col\">$strdefaultshow</th>\n";
-    $content .= "      <th class=\"header c4\" scope=\"col\">$strcatagory</th>\n";
-    $content .= "      <th class=\"header c5\" scope=\"col\">$stractions</th>\n";
-    $content .= "  </tr>\n";
+    $content  = '  <table class="generaltable generalbox" align="center" cellpadding="5">'."\n".'    <tr>'."\n";
+    $content .= '      <th class="header c0" scope="col">'.$strlinktext.'</th>'."\n";
+    $content .= '      <th class="header c1" scope="col">'.$strurl.'</th>'."\n";
+    $content .= '      <th class="header c2" scope="col">'.$strnotes.'</th>'."\n";
+    $content .= '      <th class="header c3" scope="col">'.$strdefaultshow.'</th>'."\n";
+    $content .= '      <th class="header c4" scope="col">'.$strcatagory.'</th>'."\n";
+    $content .= '      <th class="header c5" scope="col">'.$stractions.'</th>'."\n";
+    $content .= '  </tr>'."\n";
     return $content;
 }
 
@@ -120,23 +119,23 @@ function link_table_row($link, $row = 0) {
     $strno = get_string('no', 'block_links');
     $strglobal = get_string('global', 'block_links');
     
-    $content  = "  <tr class=\"r{$row}\">\n";
-    $content .= "    <td>$link->linktext</td>\n";
-    $content .= "    <td><a href=\"$link->url\">$link->url</a></td>\n";
-    $content .= "    <td>$link->notes</td>\n";
-            
-    $content .= "    <td>";
+    $content  = '  <tr class="r'.$row.'">'."\n";
+    $content .= '    <td>'.$link->linktext.'</td>'."\n";
+    $content .= '    <td><a href="'.$link->url.'">'.$link->url.'</a></td>'."\n";
+    $content .= '    <td>'.$link->notes.'</td>'."\n";
+    $content .= '    <td>';
     if ($link->defaultshow == '1') {
-        $content .= "<img src=\"$CFG->pixpath/t/clear.gif\" height=\"10\" width=\"10\" alt=\"$stryes\" title=\"$stryes\" />";
+        $content .= '<img src="'.$CFG->pixpath.'/t/clear.gif" height="10" width="10" alt="'.$stryes.'" title="'.$stryes.'" />'."\n";
     } else {
-        $content .= "<img src=\"$CFG->pixpath/t/delete.gif\" height=\"11\" width=\"11\" alt=\"$strno\" title=\"$strno\" />";
+        $content .= '<img src="'.$CFG->pixpath.'/t/delete.gif" height="11" width="11" alt="'.$strno.'" title="'.$strno.'" />'."\n";
     }
-    $content .= "</td>\n";          
-    $content .= "<td>";
+    $content .= '</td>'."\n";          
+    $content .= '<td>';
     $content .= $link->department;
-    $content .= "</td>";
-    $content .= "    <td><a href=\"?modify=$link->id\" title=\"$strmodify\"><img src=\"$CFG->pixpath/t/edit.gif\" alt=\"$strmodify\" /></a> <a href=\"?delete=$link->id\" title=\"$strdelete\"><img src=\"$CFG->pixpath/t/delete.gif\" alt=\"$strdelete\" /></a></td>\n";           
-    $content .= "  </tr>\n";
+    $content .= '</td>';
+    $content .= '    <td><a href="?modify='.$link->id.'" title="'.$strmodify.'"><img src="'.$CFG->pixpath.'/t/edit.gif" alt="'.$strmodify.'" /></a>';
+    $content .= ' <a href="?delete='.$link->id.'" title="'.$strdelete.'"><img src="'.$CFG->pixpath.'/t/delete.gif" alt="'.$strdelete.'" /></a></td>'."\n";           
+    $content .= '  </tr>'."\n";
     return $content;
 }
 
@@ -159,33 +158,33 @@ function link_modify_form($link = '', $row = 0) {
     $strcancel = get_string('cancel');
     
     
-    $content  = "  <tr class=\"r{$row}\">\n    <td><input type=\"text\" name=\"linktext\" value=\"$link->linktext\" /></td>\n";
-    $content .= "    <td><input type=\"text\" name=\"url\" value=\"$link->url\" /></td>\n";
-    $content .= "    <td><input type=\"text\" name=\"notes\" value=\"$link->notes\" /></td>\n";
-    $content .= "    <td><input type=\"hidden\" name=\"defaultshow\" value=\"0\" /><input type=\"checkbox\" name=\"defaultshow\" value=\"1\"";
+    $content  = '  <tr class="r'.$row.'">'."\n".'    <td><input type="text" name="linktext" value="'.$link->linktext.'" /></td>'."\n";
+    $content .= '    <td><input type="text" name="url" value="'.$link->url.'" /></td>'."\n";
+    $content .= '    <td><input type="text" name="notes" value="'.$link->notes.'" /></td>'."\n";
+    $content .= '    <td><input type="hidden" name="defaultshow" value="0" /><input type="checkbox" name="defaultshow" value="1"'."\n";
     
     if ($link->defaultshow == '1') {
         $content .= ' checked="checked"';
     }
-    $content .= " /></td>\n";
-    $content .= "    <td><select name=\"department\">\n";
+    $content .= ' /></td>'."\n";
+    $content .= '    <td><select name="department">'."\n";
     $strglobal = get_string('global', 'block_links');
-	$content .= "<option";
-	if ('All' == $link->department){
-		$content .= "SELECTED";
-	}
-	$content .= ">".$strglobal."</option>";
+	 $content .= ' <option ';
+	 if ('All' == $link->department){
+		$content .= 'selected = "selected"';
+	 }
+	$content .= '>'.$strglobal.'</option>';
    	$catagories = get_records('user GROUP BY department','','','department');
     foreach ($catagories as $catagory) {
-		$content .= "<option value=\"".$catagory->department."\" ";
+		$content .= '<option value="'.$catagory->department.'" ';
 		if ($catagory->department == $link->department){
-			$content .= "SELECTED";
+			$content .= 'selected = "selected"';
 		}
-		$content .= ">".$catagory->department."</option>";
+		$content .= '>'.$catagory->department.'</option>';
 		
     }
-    $content .= "</select></td>\n";
-    $content .= "    <td><input type=\"hidden\" name=\"id\" value=\"$link->id\"><input type=\"submit\" name=\"save\" value=\"$strok\" /><input type=\"submit\" value=\"$strcancel\" /></td>\n";
+    $content .= '</select></td>'."\n";
+    $content .= '    <td><input type="hidden" name="id" value="'.$link->id.'" /><input type="submit" name="save" value="'.$strok.'" /><input type="submit" value="'.$strcancel.'" /></td>'."\n";
     return $content;
 }
 
