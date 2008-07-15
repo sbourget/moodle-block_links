@@ -41,7 +41,7 @@ if (isset($_POST['save'])) {
 $stradmin = get_string('administration');
 $strmodules = get_string('managemodules');
 $strblocks = get_string('blocks');
-$strmanagelinks = get_string('managelinks', 'block_links');
+$strmanagelinks = get_string('manage_links', 'block_links');
 $strlinks = get_string('links', 'block_links');
 $stradd = get_string('addlink', 'block_links');
 $navigation = "$stradmin -> $strmodules -> $strblocks -> $strlinks -> $strmanagelinks";
