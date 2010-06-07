@@ -23,5 +23,5 @@ $string['yes'] = 'Yes';
 $string['blocktitle'] = 'Block Title:';
 $string['blocktitle2'] = 'Text to appear as the title of this block';
 $string['links:managelinks'] = 'Add / Edit links';
-
+$string['pluginname'] = 'Links';
 ?>

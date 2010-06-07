@@ -4,5 +4,5 @@
 db/access.php -text
 db/install.xml -text
 db/upgrade.php -text
-lang/en_utf8/block_links.php -text
+lang/en/block_links.php -text
 /settings.php -text
