@@ -2,7 +2,7 @@
 
 /* Reference block by Tom Flannaghan and Andrew Walker - Alton College */
 /* Modified by Sean Madden - RIT for Goffstown School District */
-/* Rebuilt for Moodle 1.8 by Stephen Bourget - Goffstown School District */
+/* Rebuilt for Moodle 1.8 - 2.0 by Stephen Bourget - Goffstown School District */
 
     class block_links extends block_list {
         function init() {
@@ -17,7 +17,7 @@
         }
         
         function get_content() {
-			global $CFG,$USER;
+            global $CFG, $USER, $DB;
             if ($this->content !== NULL) {
                 return $this->content;
             }
@@ -27,14 +27,11 @@
             $this->content->icons = array();
             $this->content->footer = '';
             
-            $rs = get_records('block_links ORDER BY linktext');
+            $rs = $DB->get_records('block_links', array('defaultshow'=>'1'), 'linktext');
             if (!is_array($rs)) {
                 $rs = array();
             }
-            $rs = stripslashes_safe($rs);
-            
-            $course = get_record('course', 'id', $this->instance->pageid);
-            
+                        
             foreach ($rs as $link) {
                 $temp = 'allow_' . $link->id;
                 
@@ -42,7 +39,7 @@
                     if ($this->config->$temp == 1) {
                         $this->add_link($link);
                     }
-                } else if (($link->defaultshow == 1) & (($link->department == 'All') | ($link->department == $_SESSION['USER']->department))) {
+                } else if (($link->department == 'All') || ($link->department == $_SESSION['USER']->department)) {
                     $this->add_link($link);
                 }
             }
@@ -54,23 +51,22 @@
              $context = get_context_instance(CONTEXT_SYSTEM); //Pinned blocks do not have own context
          }
          if((has_capability('moodle/site:manageblocks', $context)) && (has_capability('block/links:managelinks', $context))) {
-//			if (isadmin()) {
-				$link->url = $CFG->wwwroot."/blocks/links/config_global_action.php";
-				$link->linktext = "<b>".get_string('manage_links', 'block_links')."</b>";
-				$link->notes = "";
-				$this->add_link($link);
-			}
+                $link->url = $CFG->wwwroot."/blocks/links/config_global_action.php";
+                $link->linktext = "<b>".get_string('managelinks', 'block_links')."</b>";
+                $link->notes = "";
+                $this->add_link($link);
+        }
             
             return $this->content;
         }
         
         function add_link($link) {
-            global $CFG;
+            global $CFG, $OUTPUT;
             
             $target = !empty($CFG->block_links_window) ? ' target="_blank"' : '';
         
             $this->content->items[] = '<a href="' . $link->url.'"' . $target . '>'. $link->linktext . '</a> <em>' .$link->notes . '</em>';
-            $this->content->icons[] = '<img src="' . $CFG->pixpath . '/f/web.gif" height="16" width="16" alt="" />';
+            $this->content->icons[] = '<img src="'.$OUTPUT->pix_url('web','block_links').'" height="16" width="16" alt="" />';
         }
         
              

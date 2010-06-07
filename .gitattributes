@@ -5,4 +5,10 @@ db/access.php -text
 db/install.xml -text
 db/upgrade.php -text
 lang/en/block_links.php -text
+nbproject/project.properties -text
+nbproject/project.xml -text
+pix/clear.gif -text
+pix/delete.gif -text
+pix/edit.gif -text
+pix/web.gif -text
 /settings.php -text

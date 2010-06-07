@@ -30,8 +30,9 @@
 //
 // For the core capabilities, the variable is $moodle_capabilities.
 
+defined('MOODLE_INTERNAL') || die();
 
-$block_links_capabilities = array(
+$capabilities = array(
 
 
     'block/links:managelinks' => array(
@@ -41,7 +42,7 @@ $block_links_capabilities = array(
         'captype' => 'write',
         'contextlevel' => CONTEXT_SYSTEM,
         'legacy' => array(
-            'admin' => CAP_ALLOW
+            'manager' => CAP_ALLOW
         )
     )
 
