@@ -7,7 +7,7 @@
     class block_links extends block_list {
         function init() {
             $this->title = "Links";
-            $this->version = 2008050100;
+        //    $this->version = 2008050100;
         }
         
         function specialization() {
