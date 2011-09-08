@@ -1,4 +1,4 @@
-<?php  //$Id: upgrade.php,v 1.0 2008-05-01 17:05:51 sbourget Exp $
+<?php  
 
 // This file keeps track of upgrades to 
 // the links block
