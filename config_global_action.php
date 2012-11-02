@@ -45,12 +45,12 @@ if ($delete != -1) {
 
 if (!is_null($save)) {
     
-    $itemdata = new stdClass;
-    $itemdata->linktext = required_param('linktext');
-    $itemdata->url = required_param('url');
-    $itemdata->notes = required_param('notes');
-    $itemdata->defaultshow = required_param('defaultshow');
-    $itemdata->department = required_param('department');
+    $itemdata = new stdClass();
+    $itemdata->linktext = required_param('linktext',PARAM_ALPHANUMEXT);
+    $itemdata->url = required_param('url',PARAM_URL);
+    $itemdata->notes = optional_param('notes','',PARAM_ALPHANUMEXT);
+    $itemdata->defaultshow = required_param('defaultshow',PARAM_BOOL);
+    $itemdata->department = required_param('department',PARAM_ALPHANUM);
            
     if ($id == 'NEW') {
         $DB->insert_record('block_links', $itemdata);
