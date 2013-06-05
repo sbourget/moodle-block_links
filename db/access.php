@@ -34,7 +34,17 @@ defined('MOODLE_INTERNAL') || die();
 
 $capabilities = array(
 
-
+    // 'New' standard capability 'addinstance'.
+    'block/links:addinstance' => array(
+        'captype'       => 'write',
+        'contextlevel'  => CONTEXT_COURSE,
+        'archetypes'    => array(
+            'editingteacher'    => CAP_ALLOW,
+            'manager'           => CAP_ALLOW
+        ),
+        'clonepermissionsfrom'  => 'moodle/site:manageblocks'
+    ),
+    
     'block/links:managelinks' => array(
 
         'riskbitmask' => RISK_SPAM,
