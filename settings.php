@@ -25,9 +25,12 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$settings->add(new admin_setting_configtext('block_links_title', get_string('blocktitle', 'block_links'),
-                   get_string('blocktitle2', 'block_links'), get_string('blockname', 'block_links'), PARAM_TEXT));
+defined('MOODLE_INTERNAL') || die;
 
-$link ='<a href="'.$CFG->wwwroot.'/blocks/links/config_global_action.php">'.get_string('managelinks', 'block_links').'</a>';
-$settings->add(new admin_setting_heading('block_links_addheading', '', $link));
-?>
+if ($ADMIN->fulltree) {
+    $settings->add(new admin_setting_configtext('block_links_title', get_string('blocktitle', 'block_links'),
+                       get_string('blocktitle2', 'block_links'), get_string('blockname', 'block_links'), PARAM_TEXT));
+
+    $link ='<a href="'.$CFG->wwwroot.'/blocks/links/config_global_action.php">'.get_string('managelinks', 'block_links').'</a>';
+    $settings->add(new admin_setting_heading('block_links_addheading', '', $link));
+    }
