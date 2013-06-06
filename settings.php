@@ -33,4 +33,4 @@ if ($ADMIN->fulltree) {
 
     $link ='<a href="'.$CFG->wwwroot.'/blocks/links/config_global_action.php">'.get_string('managelinks', 'block_links').'</a>';
     $settings->add(new admin_setting_heading('block_links_addheading', '', $link));
-    }
+}

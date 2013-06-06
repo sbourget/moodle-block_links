@@ -24,27 +24,41 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 require_once('../../config.php');
-global $USER, $DB;
+require_once($CFG->libdir . '/tablelib.php');
+global $DB;
 
-$save = optional_param('save', null, PARAM_ALPHANUM);   // SAVE option???
-$id = optional_param('id', null, PARAM_ALPHANUM);   // id option???
-$modify = optional_param('modify', -1, PARAM_INT);
-$add = optional_param('add', -1, PARAM_INT);
-$delete = optional_param('delete', -1, PARAM_INT);
+$save = optional_param('save', '', PARAM_ALPHANUM);   // SAVE option???
+$id = optional_param('id', null, PARAM_INT);
+$modify = optional_param('modify', 0, PARAM_INT);
+$add = optional_param('add', 0, PARAM_INT);
+$delete = optional_param('delete', 0, PARAM_INT);
 
 require_login();
-$context = get_context_instance(CONTEXT_SYSTEM);
+$context = context_system::instance();
 if((!has_capability('moodle/site:manageblocks', $context)) || (!has_capability('block/links:managelinks', $context))) {
     error('ACCESS DENIED.');
 }
 
+$strmanagelinks = get_string('managelinks', 'block_links');
+$stradd = get_string('addlink', 'block_links');
+$stryes = get_string('yes', 'block_links');
+$strno = get_string('no', 'block_links');
+
+/// Print the header
+$urlparams = array();
+$baseurl = new moodle_url('/blocks/links/config_global_action.php', $urlparams);
+$PAGE->set_url($baseurl);
+$PAGE->set_context($context);
+$PAGE->navbar->add($strmanagelinks);
+$PAGE->set_title($strmanagelinks);
+$PAGE->set_heading(format_string($strmanagelinks));
+$PAGE->set_pagelayout('standard');
 
 if ($delete != -1) {
     $DB->delete_records('block_links', array('id'=> $delete));
 }
 
-if (!is_null($save)) {
-    
+if (!empty($save)) {
     $itemdata = new stdClass();
     $itemdata->linktext = required_param('linktext',PARAM_ALPHANUMEXT);
     $itemdata->url = required_param('url',PARAM_URL);
@@ -55,147 +69,119 @@ if (!is_null($save)) {
     if ($id == 'NEW') {
         $DB->insert_record('block_links', $itemdata);
     } else {
-        $itemdata->id = required_param('id');
+        $itemdata->id = required_param('id', PARAM_INT);
         $DB->update_record('block_links', $itemdata);
     }
     unset($itemdata);
 }
 
-
-$stradmin = get_string('administration');
-$strmodules = get_string('managemodules');
-$strblocks = get_string('blocks');
-$strmanagelinks = get_string('managelinks', 'block_links');
-$strlinks = get_string('links', 'block_links');
-$stradd = get_string('addlink', 'block_links');
-$navigation = "$stradmin -> $strmodules -> $strblocks -> $strlinks -> $strmanagelinks";
-
-    
 $rs = $DB->get_records('block_links');
 if (!is_array($rs)) {
     $rs = array();
 }
 
+//Check to see if we have any records
 if (count($rs) == 0) {
     $add = 1;
 }
 
-$content  = '<div id="content">'."\n".'  <h2 class="main">'.$strmanagelinks.'</h2>'."\n";
-$content .= link_table_headings();
-
-$editform = false;
-$row = 1;
-foreach ($rs as $index => $link) {
-    if ($link->id == $modify) {
-        $editform = true;
-        $content .= link_modify_form($link, $row);
-    } else {
-        $content .= link_table_row($link, $row);
-    }
-    $row = 1 - $row;
-}
-if ($add != -1) {
-    $content .= link_modify_form('', $row);
-} else {
-    $content .= '  <tr>'."\n".'   <td colspan="6" align="center"><hr /><a href="?add=true">'.$stradd.'</a></td>'."\n".'  </tr>'."\n";
-}
-$content .= '</table>'."\n";
-
-if ($editform || $add != -1) {
-    $content = '<form method="post" action="?">' . $content . '</form>'."\n";
-}
-$content .= '</div>'."\n";
-
-/// Print the header
-$PAGE->set_url('/blocks/links/config_global_action.php');
-$PAGE->navbar->add($strmanagelinks);
-$PAGE->set_title($strmanagelinks);
-$PAGE->set_heading(format_string($strmanagelinks));
-$PAGE->set_pagelayout('incourse');
 echo $OUTPUT->header();
 
+echo html_writer::start_tag('div', array('class'=>'content'));
+echo html_writer::tag('h2', $strmanagelinks, array('class'=>'main'));
 
-echo $content;
+// Generate the table
+echo html_writer::start_tag('form',array('method'=>'post', 'action'=>$baseurl));
+
+$table = new flexible_table('links-administration');
+
+$table->define_columns(array('linktext', 'url', 'notes', 'defaultshow', 'category', 'actions'));
+$table->define_headers(array(get_string('linktext', 'block_links'),
+                             get_string('url', 'block_links'),
+                             get_string('notes', 'block_links'),
+                             get_string('defaultshow', 'block_links'),
+                             get_string('category', 'block_links'),
+                             get_string('actions', 'moodle')));
+$table->define_baseurl($baseurl);
+
+$table->set_attribute('cellspacing', '0');
+$table->set_attribute('id', 'links');
+$table->set_attribute('class', 'generaltable generalbox');
+$table->column_class('linktext', 'linktext');
+$table->column_class('url', 'url');
+$table->column_class('notes', 'notes');
+$table->column_class('defaultshow', 'defaultshow');
+$table->column_class('category', 'category');
+$table->column_class('actions', 'actions');
+
+$table->setup();
+
+foreach ($rs as $index => $link) {
+    if ($link->id == $modify) {
+        
+        $table->add_data(link_edit_entry($link));
+        
+    } else {
+        if ($link->defaultshow == '1') {
+            $show = '<img src="'. $OUTPUT->pix_url('clear', 'block_links') .'" height="10" width="10" alt="'.$stryes.'" title="'.$stryes.'" />'."\n";
+        } else {
+            $show= '<img src="'. $OUTPUT->pix_url('delete', 'block_links') .'" height="11" width="11" alt="'.$strno.'" title="'.$strno.'" />'."\n";
+        }
+        
+        $editurl = new moodle_url('/blocks/links/config_global_action.php',array('modify'=>$link->id));
+        $editaction = $OUTPUT->action_icon($editurl, new pix_icon('t/edit', get_string('edit')));
+        
+        $deleteurl = new moodle_url('/blocks/links/config_global_action.php',array('delete'=>$link->id, 'sesskey'=>sesskey()));
+        $deleteicon = new pix_icon('t/delete', get_string('delete'));
+        $deleteaction = $OUTPUT->action_icon($deleteurl, $deleteicon, new confirm_action(get_string('deletelinkconfirm', 'block_links')));
+        $icons = $editaction . ' ' . $deleteaction;
+        
+        $table->add_data(array($link->linktext, 
+                                   html_writer::link($link->url, $link->url, array('target'=>'_blank')),
+                                   $link->notes,
+                                   $show,
+                                   $link->department,
+                                   $icons));
+    }
+
+}
+// See if we are adding another record
+if($add) {
+    $table->add_data(link_edit_entry(''));
+}
+
+$table->print_html();
+
+echo html_writer::end_tag('form');
+echo html_writer::start_tag('div', array('class'=>'actionbuttons'));
+
+// Do not print the add button if currently adding a record
+if(!$add) {
+    echo html_writer::empty_tag('hr', array());
+    $addurl = new moodle_url('/blocks/links/config_global_action.php', array('add'=>true));
+    echo $OUTPUT->single_button($addurl, get_string('addlink', 'block_links'), 'get');
+}
+echo html_writer::end_tag('div');
+echo html_writer::end_tag('div');
+
 echo $OUTPUT->footer();
 
-
 /**
- * generates the table headers for the config page
- * @return string HTML
+ * This function generates the form needed to add / edit records
+ * @global class $DB
+ * @param stdClass $link
+ * @return array
  */
-function link_table_headings() {
-    
-    $strlinktext = get_string('linktext', 'block_links');
-    $strurl = get_string('url', 'block_links');
-    $strnotes = get_string('notes', 'block_links');
-    $strdefaultshow = get_string('defaultshow', 'block_links');
-    $strcatagory = get_string('catagory', 'block_links');
-    $stractions = get_string('actions', 'block_links');
-    
-    $content  = '  <table class="generaltable generalbox" align="center" cellpadding="5">'."\n".'    <tr>'."\n";
-    $content .= '      <th class="header c0" scope="col">'.$strlinktext.'</th>'."\n";
-    $content .= '      <th class="header c1" scope="col">'.$strurl.'</th>'."\n";
-    $content .= '      <th class="header c2" scope="col">'.$strnotes.'</th>'."\n";
-    $content .= '      <th class="header c3" scope="col">'.$strdefaultshow.'</th>'."\n";
-    $content .= '      <th class="header c4" scope="col">'.$strcatagory.'</th>'."\n";
-    $content .= '      <th class="header c5" scope="col">'.$stractions.'</th>'."\n";
-    $content .= '  </tr>'."\n";
-    return $content;
-}
-/**
- * Generates a single row HTML row for the config page
- * @global object $CFG
- * @global object $OUTPUT
- * @param object $link - object with link db record info
- * @param int $row - row number used for CSS
- * @return string HTML
- */
-function link_table_row($link, $row = 0) {
-    global $CFG, $OUTPUT;
-
-    $strmodify = get_string('modify', 'block_links');
-    $strdelete = get_string('delete', 'block_links');
-    $stryes = get_string('yes', 'block_links');
-    $strno = get_string('no', 'block_links');
-
-    $content  = '  <tr class="r'.$row.'">'."\n";
-    $content .= '    <td>'.$link->linktext.'</td>'."\n";
-    $content .= '    <td><a href="'.$link->url.'">'.$link->url.'</a></td>'."\n";
-    $content .= '    <td>'.$link->notes.'</td>'."\n";
-    $content .= '    <td>';
-    if ($link->defaultshow == '1') {
-        $content .= '<img src="'. $OUTPUT->pix_url('clear', 'block_links') .'" height="10" width="10" alt="'.$stryes.'" title="'.$stryes.'" />'."\n";
-    } else {
-        $content .= '<img src="'. $OUTPUT->pix_url('delete', 'block_links') .'" height="11" width="11" alt="'.$strno.'" title="'.$strno.'" />'."\n";
-    }
-    $content .= '</td>'."\n";          
-    $content .= '<td>';
-    $content .= $link->department;
-    $content .= '</td>';
-    $content .= '    <td><a href="?modify='.$link->id.'" title="'.$strmodify.'"><img src="'. $OUTPUT->pix_url('edit', 'block_links') .'" alt="'.$strmodify.'" /></a>';
-    $content .= ' <a href="?delete='.$link->id.'" title="'.$strdelete.'"><img src="'. $OUTPUT->pix_url('delete', 'block_links') .'" alt="'.$strdelete.'" /></a></td>'."\n";
-    $content .= '  </tr>'."\n";
-    return $content;
-}
-
-
-/**
- * Generates the editing form for one of the links
- * @global object $DB
- * @param object $link - object with link db record info
- * @param int $row - row number used for CSS
- * @return string HTML
- * @todo This should be eventually be converted to mforms
- */
-function link_modify_form($link = '', $row = 0) {
+function link_edit_entry($link) {
     global $DB;
-    if ($link == '') {
+    
+    if (!is_object($link)) {
         $link = new stdClass;
         $link->id = 'NEW';
         $link->linktext = '';
         $link->url = '';
         $link->notes = '';
-        $link->defaultshow = '1';
+        $link->defaultshow = true;
         $link->newwindow = '1';
         $link->department = 'All';
         
@@ -205,47 +191,33 @@ function link_modify_form($link = '', $row = 0) {
     }
     
     $strcancel = get_string('cancel');
-    
-    
-    $content  = '  <tr class="r'.$row.'">'."\n";
-    $content .= '    <td><input type="text" name="linktext" value="'.$link->linktext.'" /></td>'."\n";
-    $content .= '    <td><input type="text" name="url" value="'.$link->url.'" /></td>'."\n";
-    $content .= '    <td><input type="text" name="notes" value="'.$link->notes.'" /></td>'."\n";
-    $content .= '    <td><input type="hidden" name="defaultshow" value="0" />'."\n";
-    $content .= '        <input type="checkbox" name="defaultshow" value="1"';
-    
-    if ($link->defaultshow == '1') {
-        $content .= ' checked="checked"';
+    $ltext = html_writer::empty_tag('input',array('type'=>'text', 'name'=>'linktext', 'value'=>$link->linktext, 'required'=>'required'));
+    $urltext = html_writer::empty_tag('input',array('type'=>'text', 'name'=>'url', 'value'=>$link->url, 'required'=>'required'));
+    $notestext = html_writer::empty_tag('input',array('type'=>'text', 'name'=>'notes', 'value'=>$link->notes));
+    if($link->defaultshow) {
+        $show = html_writer::select_yes_no('defaultshow', true);
+    } else {
+        $show = html_writer::select_yes_no('defaultshow', false);
     }
-    $content .= ' /></td>'."\n";
-    $content .= '    <td><select name="department">'."\n";
-    $strglobal = get_string('global', 'block_links');
-    $content .= '        <option ';
-    if ('All' == $link->department){
-        $content .= 'selected = "selected"';
-    }
-    $content .= '>'.$strglobal.'</option>'."\n";
-
+    
+    $options = array();
+    $options['All'] = get_string('all', 'block_links');
+    
     $sql = "SELECT DISTINCT department FROM {user} ORDER BY department";
-    $catagories = $DB->get_records_sql($sql);
-
-    foreach ($catagories as $catagory) {
-        if (!empty($catagory->department)) {
-            $content .= '        <option value="'.$catagory->department.'" ';
-            if ($catagory->department == $link->department){
-                $content .= 'selected = "selected"';
-            }
-            $content .= '>'.$catagory->department.'</option>'."\n";
+    $categories = $DB->get_records_sql($sql);
+    foreach ($categories as $category) {
+        if (!empty($category->department)) {
+            $options[$category->department] = $category->department;
         }
     }
     
-    $content .= '    </select></td>'."\n";
-    $content .= '    <td><input type="hidden" name="id" value="'.$link->id.'" />'."\n";
-    $content .= '        <input type="submit" name="save" value="'.$strok.'" />'."\n";
-    $content .= '        <input type="submit" value="'.$strcancel.'" />'."\n";
-    $content .= '    </td>'."\n";
-    $content .= '  </tr>'."\n";
-    return $content;
-}
+    $department = html_writer::select($options, 'department', $link->department);
+    $id = html_writer::empty_tag('input',array('type'=>'hidden', 'name'=>'id', 'value'=>$link->id));
 
+    $save = html_writer::empty_tag('input',array('type'=>'submit', 'name'=>'save', 'value'=>$strok));
+    $cancel = html_writer::empty_tag('input',array('type'=>'submit', 'name'=>'cancel', 'value'=>$strcancel));
+    $hidden = $id . $save. $cancel;
+    
+    return(array($ltext, $urltext,$notestext, $show, $department, $hidden));
+}
 ?>

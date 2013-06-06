@@ -1,7 +1,7 @@
 <?php // $Id: block_links.php,v 1.1 2008/05/01 21:53:43 sbourget Exp $ 
 
 $string['actions'] = 'Actions';
-$string['catagory'] = 'Category';
+$string['category'] = 'Category';
 $string['global'] = 'All';
 $string['addlink'] = 'Add a link';
 $string['blockname'] = 'Learning Resources';
@@ -24,4 +24,6 @@ $string['blocktitle'] = 'Block Title:';
 $string['blocktitle2'] = 'Text to appear as the title of this block';
 $string['links:managelinks'] = 'Add / Edit links';
 $string['pluginname'] = 'Links';
+$string['deletelinkconfirm'] = 'Are you sure you want to delete this link?';
+$string['all'] = 'All';
 ?>
