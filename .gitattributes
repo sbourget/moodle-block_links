@@ -1,4 +1,6 @@
 * text=auto !eol
+backup/moodle2/backup_links_block_task.class.php -text
+backup/moodle2/backup_links_stepslib.php -text
 /block_links.php -text
 /config_global_action.php -text
 db/access.php -text
