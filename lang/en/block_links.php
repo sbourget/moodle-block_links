@@ -16,8 +16,6 @@ $string['linktext'] = 'Link text';
 $string['managelinks'] = 'Add/Edit Links';
 $string['notes'] = 'Additional text';
 $string['pluginname'] = 'Links';
-
 $string['url'] = 'URL';
-
 
 ?>
