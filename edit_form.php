@@ -20,7 +20,7 @@
  * department association
  *
  * @package   block_links
- * @copyright 2010 Stephen Bourget
+ * @copyright 2013 Stephen Bourget
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 require_once('../../config.php');
