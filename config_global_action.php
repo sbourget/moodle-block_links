@@ -27,10 +27,6 @@ require_once('../../config.php');
 require_once($CFG->libdir . '/tablelib.php');
 global $DB;
 
-$save = optional_param('save', '', PARAM_ALPHANUM);   // SAVE option???
-$id = optional_param('id', null, PARAM_INT);
-$modify = optional_param('modify', 0, PARAM_INT);
-$add = optional_param('add', 0, PARAM_INT);
 $delete = optional_param('delete', 0, PARAM_INT);
 
 require_login();
@@ -40,15 +36,14 @@ if((!has_capability('moodle/site:manageblocks', $context)) || (!has_capability('
 }
 
 $strmanagelinks = get_string('managelinks', 'block_links');
-$stradd = get_string('addlink', 'block_links');
-$stryes = get_string('yes', 'block_links');
-$strno = get_string('no', 'block_links');
 
 /// Print the header
 $urlparams = array();
 $baseurl = new moodle_url('/blocks/links/config_global_action.php', $urlparams);
 $PAGE->set_url($baseurl);
 $PAGE->set_context($context);
+$PAGE->navbar->add(get_string('blocks'));
+$PAGE->navbar->add(get_string('pluginname', 'block_links'),$baseurl);
 $PAGE->navbar->add($strmanagelinks);
 $PAGE->set_title($strmanagelinks);
 $PAGE->set_heading(format_string($strmanagelinks));
@@ -56,23 +51,6 @@ $PAGE->set_pagelayout('standard');
 
 if ($delete != -1) {
     $DB->delete_records('block_links', array('id'=> $delete));
-}
-
-if (!empty($save)) {
-    $itemdata = new stdClass();
-    $itemdata->linktext = required_param('linktext',PARAM_ALPHANUMEXT);
-    $itemdata->url = required_param('url',PARAM_URL);
-    $itemdata->notes = optional_param('notes','',PARAM_ALPHANUMEXT);
-    $itemdata->defaultshow = required_param('defaultshow',PARAM_BOOL);
-    $itemdata->department = required_param('department',PARAM_ALPHANUM);
-           
-    if ($id == 'NEW') {
-        $DB->insert_record('block_links', $itemdata);
-    } else {
-        $itemdata->id = required_param('id', PARAM_INT);
-        $DB->update_record('block_links', $itemdata);
-    }
-    unset($itemdata);
 }
 
 $rs = $DB->get_records('block_links');
@@ -117,107 +95,42 @@ $table->column_class('actions', 'actions');
 $table->setup();
 
 foreach ($rs as $index => $link) {
-    if ($link->id == $modify) {
-        
-        $table->add_data(link_edit_entry($link));
-        
+
+    if ($link->defaultshow == '1') {
+        $show = '<img src="'. $OUTPUT->pix_url('clear', 'block_links') .'" height="10" width="10" alt="'.get_string('yes').'" title="'.get_string('yes').'" />'."\n";
     } else {
-        if ($link->defaultshow == '1') {
-            $show = '<img src="'. $OUTPUT->pix_url('clear', 'block_links') .'" height="10" width="10" alt="'.$stryes.'" title="'.$stryes.'" />'."\n";
-        } else {
-            $show= '<img src="'. $OUTPUT->pix_url('delete', 'block_links') .'" height="11" width="11" alt="'.$strno.'" title="'.$strno.'" />'."\n";
-        }
-        
-        $editurl = new moodle_url('/blocks/links/config_global_action.php',array('modify'=>$link->id));
-        $editaction = $OUTPUT->action_icon($editurl, new pix_icon('t/edit', get_string('edit')));
-        
-        $deleteurl = new moodle_url('/blocks/links/config_global_action.php',array('delete'=>$link->id, 'sesskey'=>sesskey()));
-        $deleteicon = new pix_icon('t/delete', get_string('delete'));
-        $deleteaction = $OUTPUT->action_icon($deleteurl, $deleteicon, new confirm_action(get_string('deletelinkconfirm', 'block_links')));
-        $icons = $editaction . ' ' . $deleteaction;
-        
-        $table->add_data(array($link->linktext, 
-                                   html_writer::link($link->url, $link->url, array('target'=>'_blank')),
-                                   $link->notes,
-                                   $show,
-                                   $link->department,
-                                   $icons));
+        $show= '<img src="'. $OUTPUT->pix_url('delete', 'block_links') .'" height="11" width="11" alt="'.get_string('no').'" title="'.get_string('no').'" />'."\n";
     }
 
+    $editurl = new moodle_url('/blocks/links/edit.php',array('id'=>$link->id));
+    $editaction = $OUTPUT->action_icon($editurl, new pix_icon('t/edit', get_string('edit')));
+
+    $deleteurl = new moodle_url('/blocks/links/config_global_action.php',array('delete'=>$link->id, 'sesskey'=>sesskey()));
+    $deleteicon = new pix_icon('t/delete', get_string('delete'));
+    $deleteaction = $OUTPUT->action_icon($deleteurl, $deleteicon, new confirm_action(get_string('deletelinkconfirm', 'block_links')));
+    $icons = $editaction . ' ' . $deleteaction;
+
+    $table->add_data(array($link->linktext, 
+                               html_writer::link($link->url, $link->url, array('target'=>'_blank')),
+                               $link->notes,
+                               $show,
+                               $link->department,
+                               $icons));
 }
-// See if we are adding another record
-if($add) {
-    $table->add_data(link_edit_entry(''));
-}
+
+
 
 $table->print_html();
 
 echo html_writer::end_tag('form');
 echo html_writer::start_tag('div', array('class'=>'actionbuttons'));
 
-// Do not print the add button if currently adding a record
-if(!$add) {
-    echo html_writer::empty_tag('hr', array());
-    $addurl = new moodle_url('/blocks/links/config_global_action.php', array('add'=>true));
-    echo $OUTPUT->single_button($addurl, get_string('addlink', 'block_links'), 'get');
-}
+
+echo html_writer::empty_tag('hr', array());
+$addurl = new moodle_url('/blocks/links/edit.php', array());
+echo $OUTPUT->single_button($addurl, get_string('addlink', 'block_links'), 'get');
 echo html_writer::end_tag('div');
 echo html_writer::end_tag('div');
 
 echo $OUTPUT->footer();
 
-/**
- * This function generates the form needed to add / edit records
- * @global class $DB
- * @param stdClass $link
- * @return array
- */
-function link_edit_entry($link) {
-    global $DB;
-    
-    if (!is_object($link)) {
-        $link = new stdClass;
-        $link->id = 'NEW';
-        $link->linktext = '';
-        $link->url = '';
-        $link->notes = '';
-        $link->defaultshow = true;
-        $link->newwindow = '1';
-        $link->department = 'All';
-        
-        $strok = get_string('add');
-    } else {
-        $strok = get_string('edit');
-    }
-    
-    $strcancel = get_string('cancel');
-    $ltext = html_writer::empty_tag('input',array('type'=>'text', 'name'=>'linktext', 'value'=>$link->linktext, 'required'=>'required'));
-    $urltext = html_writer::empty_tag('input',array('type'=>'text', 'name'=>'url', 'value'=>$link->url, 'required'=>'required'));
-    $notestext = html_writer::empty_tag('input',array('type'=>'text', 'name'=>'notes', 'value'=>$link->notes));
-    if($link->defaultshow) {
-        $show = html_writer::select_yes_no('defaultshow', true);
-    } else {
-        $show = html_writer::select_yes_no('defaultshow', false);
-    }
-    
-    $options = array();
-    $options['All'] = get_string('all', 'block_links');
-    
-    $sql = "SELECT DISTINCT department FROM {user} ORDER BY department";
-    $categories = $DB->get_records_sql($sql);
-    foreach ($categories as $category) {
-        if (!empty($category->department)) {
-            $options[$category->department] = $category->department;
-        }
-    }
-    
-    $department = html_writer::select($options, 'department', $link->department);
-    $id = html_writer::empty_tag('input',array('type'=>'hidden', 'name'=>'id', 'value'=>$link->id));
-
-    $save = html_writer::empty_tag('input',array('type'=>'submit', 'name'=>'save', 'value'=>$strok));
-    $cancel = html_writer::empty_tag('input',array('type'=>'submit', 'name'=>'cancel', 'value'=>$strcancel));
-    $hidden = $id . $save. $cancel;
-    
-    return(array($ltext, $urltext,$notestext, $show, $department, $hidden));
-}
-?>

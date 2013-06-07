@@ -6,7 +6,7 @@
 
     class block_links extends block_list {
         function init() {
-            $this->title = "Links";
+            $this->title = get_string('links','block_links');
         //    $this->version = 2008050100;
         }
         
