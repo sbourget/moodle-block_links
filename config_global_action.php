@@ -53,7 +53,7 @@ if ($delete != -1) {
     $DB->delete_records('block_links', array('id'=> $delete));
 }
 
-$rs = $DB->get_records('block_links');
+$rs = $DB->get_records('block_links', null, 'linktext');
 if (!is_array($rs)) {
     $rs = array();
 }
