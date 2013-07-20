@@ -11,6 +11,7 @@ $string['defaultshow'] = 'Show by default';
 $string['delete'] = 'Delete';
 $string['deletelinkconfirm'] = 'Are you sure you want to delete this link?';
 $string['display'] = 'Display';
+$string['editlink'] = 'Update link';
 $string['links'] = 'Links';
 $string['links:managelinks'] = 'Add / Edit links';
 $string['links:addinstance'] = 'Add the links block';
