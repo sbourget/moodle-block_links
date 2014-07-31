@@ -56,7 +56,8 @@
             if (!is_array($rs)) {
                 $rs = array();
             }
-                        
+            
+            $link = new stdClass();
             foreach ($rs as $link) {
                 $temp = 'allow_' . $link->id;
                 
