@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -20,11 +21,13 @@
  * department association
  *
  * @package   block_links
- * @copyright 2010 Stephen Bourget
+ * @copyright 2014 Stephen Bourget
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$plugin->version = 2014073101;
-$plugin->requires = 2010112400;
+// Define some constants
 
-?>
+define('BLOCK_LINKS_INSTITUTION', 1);
+define('BLOCK_LINKS_DEPARTMENT', 2);
+define('BLOCK_LINKS_CITY', 3);
+define('BLOCK_LINKS_COUNTRY', 4);

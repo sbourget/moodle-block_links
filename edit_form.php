@@ -25,6 +25,7 @@
  */
 
 require_once($CFG->libdir . '/formslib.php');
+require_once($CFG->dirroot.'/blocks/links/lib.php');
 
 class link_edit_form extends moodleform {
     protected $isadding;
@@ -44,7 +45,7 @@ class link_edit_form extends moodleform {
     }
 
     function definition() {
-        global $DB;
+        global $DB, $CFG;
         $mform =& $this->_form;
 
         // Then show the fields about where this block appears.
@@ -70,13 +71,57 @@ class link_edit_form extends moodleform {
         $options = array();
         $options['All'] = get_string('all', 'block_links');
     
-        $sql = "SELECT DISTINCT department FROM {user} ORDER BY department";
-        $categories = $DB->get_records_sql($sql);
-        foreach ($categories as $category) {
-            if (!empty($category->department)) {
-                $options[$category->department] = $category->department;
-            }
+        switch($CFG->block_links_profile_field) {
+            case BLOCK_LINKS_INSTITUTION:
+                $sql = "SELECT DISTINCT institution FROM {user} ORDER BY institution";
+                $categories = $DB->get_records_sql($sql);
+                foreach ($categories as $category) {
+                    if (!empty($category->institution)) {
+                        $options[$category->institution] = $category->institution;
+                    }
+                }
+                break;
+
+            case BLOCK_LINKS_DEPARTMENT:
+                $sql = "SELECT DISTINCT department FROM {user} ORDER BY department";
+                $categories = $DB->get_records_sql($sql);
+                foreach ($categories as $category) {
+                    if (!empty($category->department)) {
+                        $options[$category->department] = $category->department;
+                    }
+                }
+                break;
+
+            case BLOCK_LINKS_CITY:
+                $sql = "SELECT DISTINCT city FROM {user} ORDER BY city";
+                $categories = $DB->get_records_sql($sql);
+                foreach ($categories as $category) {
+                    if (!empty($category->city)) {
+                        $options[$category->city] = $category->city;
+                    }
+                }
+                break;
+            
+            case BLOCK_LINKS_COUNTRY:
+                $sql = "SELECT DISTINCT country FROM {user} ORDER BY country";
+                $categories = $DB->get_records_sql($sql);
+                foreach ($categories as $category) {
+                    if (!empty($category->country)) {
+                        $options[$category->country] = $category->country;
+                    }
+                }
+                break;
+
+            default:
+                $sql = "SELECT DISTINCT institution FROM {user} ORDER BY institution";
+                $categories = $DB->get_records_sql($sql);
+                foreach ($categories as $category) {
+                    if (!empty($category->institution)) {
+                        $options[$category->institution] = $category->institution;
+                    }
+                }
         }
+
         $mform->addElement('select', 'department', get_string('category', 'block_links'), $options);
         $mform->setType('department', PARAM_ALPHANUMEXT);
         $mform->setDefault('department','All');

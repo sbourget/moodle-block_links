@@ -29,6 +29,8 @@
  * Updated for Moodle 1.8+ by Stephen Bourget - Goffstown School District
  */
 
+require_once($CFG->dirroot.'/blocks/links/lib.php');
+    
     class block_links extends block_list {
         function init() {
             $this->title = get_string('links','block_links');
@@ -58,14 +60,46 @@
             
             $link = new stdClass();
             foreach ($rs as $link) {
-                $temp = 'allow_' . $link->id;
-                
-                if (isset($this->config->$temp)) {
-                    if ($this->config->$temp == 1) {
-                        $this->add_link($link);
-                    }
-                } else if (($link->department == 'All') || ($link->department == $_SESSION['USER']->department)) {
+//                $temp = 'allow_' . $link->id;
+//                
+//                if (isset($this->config->$temp)) {
+//                    if ($this->config->$temp == 1) {
+//                        $this->add_link($link);
+//                    }
+//                } else if (($link->department == 'All') || ($link->department == $_SESSION['USER']->department)) {
+//                    $this->add_link($link);
+//                }
+                if ($link->department == 'All') {
                     $this->add_link($link);
+                } else {
+                    // Check to see if the user should be able to view it.
+                    switch($CFG->block_links_profile_field) {
+                        case BLOCK_LINKS_INSTITUTION:
+                            if ($link->department == $_SESSION['USER']->institution) {
+                                $this->add_link($link);
+                            }
+                            break;
+                        
+                        case BLOCK_LINKS_DEPARTMENT:
+                            if ($link->department == $_SESSION['USER']->department) {
+                                $this->add_link($link);
+                            }
+                            break;
+                        
+                        case BLOCK_LINKS_CITY:
+                            if ($link->department == $_SESSION['USER']->city) {
+                                $this->add_link($link);
+                            }
+                            break;
+                        
+                        case BLOCK_LINKS_COUNTRY:
+                            if ($link->department == $_SESSION['USER']->country) {
+                                $this->add_link($link);
+                            }
+                            break;
+                        
+                        default:
+                    }
                 }
             }
 
