@@ -32,7 +32,6 @@
     class block_links extends block_list {
         function init() {
             $this->title = get_string('links','block_links');
-        //    $this->version = 2008050100;
         }
         
         function specialization() {
@@ -42,7 +41,7 @@
         }
         
         function get_content() {
-            global $CFG, $USER, $DB;
+            global $CFG, $DB;
             if ($this->content !== NULL) {
                 return $this->content;
             }
@@ -94,8 +93,7 @@
             $this->content->items[] = '<a href="' . $link->url.'"' . $target . '>'. $link->linktext . '</a> <em>' .$link->notes . '</em>';
             $this->content->icons[] = '<img src="'.$OUTPUT->pix_url('web','block_links').'" height="16" width="16" alt="" />';
         }
-        
-             
+
         function has_config() {
             return true;
         }
