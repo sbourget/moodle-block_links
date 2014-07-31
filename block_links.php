@@ -47,7 +47,7 @@
                 return $this->content;
             }
             
-            $this->content = new stdClass;
+            $this->content = new stdClass();
             $this->content->items = array();
             $this->content->icons = array();
             $this->content->footer = '';
@@ -71,10 +71,10 @@
             }
 
          if(empty($this->instance->pinned)) {
-             $context = get_context_instance(CONTEXT_BLOCK, $this->instance->id);
+             $context = context_block::instance($this->instance->id);
          } 
          else {
-             $context = get_context_instance(CONTEXT_SYSTEM); //Pinned blocks do not have own context
+             $context = context_system::instance(); //Pinned blocks do not have own context
          }
          if((has_capability('moodle/site:manageblocks', $context)) && (has_capability('block/links:managelinks', $context))) {
                 $link->url = $CFG->wwwroot."/blocks/links/config_global_action.php";
