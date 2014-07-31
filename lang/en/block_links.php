@@ -15,6 +15,7 @@ $string['editlink'] = 'Update link';
 $string['links'] = 'Links';
 $string['links:managelinks'] = 'Add / Edit links';
 $string['links:addinstance'] = 'Add the links block';
+$string['links:myaddinstance'] = 'Add the links block to my home';
 $string['linktext'] = 'Link text';
 $string['managelinks'] = 'Add/Edit Links';
 $string['notes'] = 'Additional text';
