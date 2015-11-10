@@ -40,7 +40,7 @@ class link_edit_form extends moodleform {
     public function __construct($actionurl, $isadding, $id) {
         $this->isadding = $isadding;
         $this->id = $id;
-        parent::moodleform($actionurl);
+        parent::__construct($actionurl);
     }
 
     public function definition() {
