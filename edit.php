@@ -30,7 +30,7 @@ $id = optional_param('id', 0, PARAM_INT); // 0 mean create new.
 
 require_login();
 $context = context_system::instance();
-if((!has_capability('moodle/site:manageblocks', $context)) || (!has_capability('block/links:managelinks', $context))) {
+if ((!has_capability('moodle/site:manageblocks', $context)) || (!has_capability('block/links:managelinks', $context))) {
     error('ACCESS DENIED.');
 }
 $PAGE->set_context($context);
@@ -71,7 +71,7 @@ if ($mform->is_cancelled()) {
 
     $strmanagelinks = get_string('managelinks', 'block_links');
     $PAGE->navbar->add(get_string('blocks'));
-    $PAGE->navbar->add(get_string('pluginname', 'block_links'),$returnurl);
+    $PAGE->navbar->add(get_string('pluginname', 'block_links'), $returnurl);
     $PAGE->navbar->add($strmanagelinks);
     $PAGE->set_title($strmanagelinks);
     $PAGE->set_heading(format_string($strmanagelinks));

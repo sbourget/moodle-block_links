@@ -36,15 +36,14 @@ class link_edit_form extends moodleform {
     protected $defaultshow = true;
     protected $newwindow = 1;
     protected $department = 'All';
-    
-    
-    function __construct($actionurl, $isadding, $id) {
+
+    public function __construct($actionurl, $isadding, $id) {
         $this->isadding = $isadding;
         $this->id = $id;
         parent::moodleform($actionurl);
     }
 
-    function definition() {
+    public function definition() {
         global $DB, $CFG;
         $mform =& $this->_form;
 
@@ -54,23 +53,23 @@ class link_edit_form extends moodleform {
         $mform->addElement('text', 'linktext', get_string('linktext', 'block_links'), array('size' => 60));
         $mform->setType('linktext', PARAM_TEXT);
         $mform->addRule('linktext', null, 'required');
-        
+
         $mform->addElement('text', 'url', get_string('url', 'block_links'), array('size' => 60));
         $mform->setType('url', PARAM_URL);
-        $mform->addRule('url', null, 'required');        
+        $mform->addRule('url', null, 'required');
 
         $mform->addElement('header', 'additionalsettings', get_string('additionalsettings', 'block_links'));
-        
+
         $mform->addElement('text', 'notes', get_string('notes', 'block_links'), array('size' => 60));
         $mform->setType('notes', PARAM_TEXT);
-        
-        $mform->addElement('select', 'defaultshow', get_string('defaultshow', 'block_links'), array(1=>get_string('yes'),0=>get_string('no')));
+
+        $mform->addElement('select', 'defaultshow', get_string('defaultshow', 'block_links'), array(1 => get_string('yes'), 0 => get_string('no')));
         $mform->setType('defaultshow', PARAM_INT);
-        $mform->setDefault('defaultshow',$this->defaultshow);
+        $mform->setDefault('defaultshow', $this->defaultshow);
 
         $options = array();
         $options['All'] = get_string('all', 'block_links');
-    
+
         switch($CFG->block_links_profile_field) {
             case BLOCK_LINKS_INSTITUTION:
                 $sql = "SELECT DISTINCT institution FROM {user} ORDER BY institution";
@@ -101,7 +100,7 @@ class link_edit_form extends moodleform {
                     }
                 }
                 break;
-            
+
             case BLOCK_LINKS_COUNTRY:
                 $sql = "SELECT DISTINCT country FROM {user} ORDER BY country";
                 $categories = $DB->get_records_sql($sql);
@@ -124,13 +123,13 @@ class link_edit_form extends moodleform {
 
         $mform->addElement('select', 'department', get_string('category', 'block_links'), $options);
         $mform->setType('department', PARAM_ALPHANUMEXT);
-        $mform->setDefault('department','All');
-        
+        $mform->setDefault('department', 'All');
+
         // Hidden.
         $mform->addElement('hidden', 'id');
         $mform->setType('id', PARAM_INT);
 
         $this->add_action_buttons(true);
     }
-    
+
 }

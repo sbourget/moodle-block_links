@@ -1,5 +1,4 @@
-<?php 
-
+<?php
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -15,7 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-
 /**
  * This block generates a simple list of links based on the users 
  * department association
@@ -28,15 +26,15 @@
 defined('MOODLE_INTERNAL') || die;
 
 if ($ADMIN->fulltree) {
-    // Load Constants
+    // Load Constants.
     require_once($CFG->dirroot.'/blocks/links/lib.php');
-    
+
     $settings->add(new admin_setting_configtext('block_links_title', get_string('blocktitle', 'block_links'),
                        get_string('blocktitle_desc', 'block_links'), get_string('blockname', 'block_links'), PARAM_TEXT));
 
-    $link ='<a href="'.$CFG->wwwroot.'/blocks/links/config_global_action.php">'.get_string('managelinks', 'block_links').'</a>';
+    $link = '<a href="'.$CFG->wwwroot.'/blocks/links/config_global_action.php">'.get_string('managelinks', 'block_links').'</a>';
     $settings->add(new admin_setting_heading('block_links_addheading', '', $link));
-    
+
     $options = array();
     $options[BLOCK_LINKS_INSTITUTION] = get_string('institution', 'moodle');
     $options[BLOCK_LINKS_DEPARTMENT] = get_string('department', 'moodle');
