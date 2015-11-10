@@ -63,7 +63,9 @@ class link_edit_form extends moodleform {
         $mform->addElement('text', 'notes', get_string('notes', 'block_links'), array('size' => 60));
         $mform->setType('notes', PARAM_TEXT);
 
-        $mform->addElement('select', 'defaultshow', get_string('defaultshow', 'block_links'), array(1 => get_string('yes'), 0 => get_string('no')));
+        $mform->addElement('select', 'defaultshow', get_string('defaultshow', 'block_links'),
+                array(1 => get_string('yes'), 0 => get_string('no')));
+
         $mform->setType('defaultshow', PARAM_INT);
         $mform->setDefault('defaultshow', $this->defaultshow);
 
