@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+$string['accessdenied'] = 'Access Denied.';
 $string['additionalsettings'] = 'Additional Setings';
 $string['addlink'] = 'Add a new link';
 $string['all'] = 'All';
