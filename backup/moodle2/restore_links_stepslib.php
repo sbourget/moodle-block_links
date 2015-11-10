@@ -25,12 +25,12 @@
  */
 
 /**
-* Define all the restore steps that wll be used by the restore_links_block_task
-*/
+ * Define all the restore steps that wll be used by the restore_links_block_task
+ */
 
 /**
-* Define the complete links structure for restore
-*/
+ * Define the complete links structure for restore
+ */
 class restore_links_block_structure_step extends restore_structure_step {
 
     protected function define_structure() {
@@ -48,28 +48,27 @@ class restore_links_block_structure_step extends restore_structure_step {
 
         $data = (object)$data;
 
-        // For any reason (non multiple, dupe detected...) block not restored, return
+        // For any reason (non multiple, dupe detected...) block not restored, return.
         if (!$this->task->get_blockid()) {
             return;
         }
 
-        // Iterate over all the link elements, creating them if needed
+        // Iterate over all the link elements, creating them if needed.
         if (isset($data->link)) {
             foreach ($data->link as $link) {
                 $link = (object)$link;
-                // Look if the same link is available by url
+                // Look if the same link is available by url.
                 $select = 'url = :url AND linktext = :linktext';
                 $params = array('url' => $link->url, 'linktext' => $link->linktext);
-                
-                
-                // The link already exists, use it
+
+                // The link already exists, use it.
                 if ($linkid = $DB->get_field_select('block_links', 'id', $select, $params, IGNORE_MULTIPLE)) {
                     // The record exists (Do nothing)!
 
-                // The link doesn't exist, create it
                 } else {
+                    // The link doesn't exist, create it.
                     $linkid = $DB->insert_record('block_links', $link);
-                    
+
                 }
             }
         }

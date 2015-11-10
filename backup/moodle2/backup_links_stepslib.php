@@ -26,20 +26,19 @@
 class backup_links_block_structure_step extends backup_block_structure_step {
 
     protected function define_structure() {
-        global $DB;
 
-        // Define each element separated
+        // Define each element separated.
 
         $link = new backup_nested_element('link', null, array(
-            'id','linktext', 'url', 'notes', 'defaultshow', 'department'));
+            'id', 'linktext', 'url', 'notes', 'defaultshow', 'department'));
 
-        // Define sources
+        // Define sources.
 
         $link->set_source_sql("SELECT * FROM {block_links}", array());
 
-        // Annotations (none)
+        // Annotations (none).
 
-        // Return the root element (links), wrapped into standard block structure
+        // Return the root element (links), wrapped into standard block structure.
         return $this->prepare_block_structure($link);
     }
 }
