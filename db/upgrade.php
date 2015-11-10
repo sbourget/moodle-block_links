@@ -1,7 +1,20 @@
-<?php  
+<?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-// This file keeps track of upgrades to 
-// the links block
+// This file keeps track of upgrades to the links block
 //
 // Sometimes, changes between versions involve
 // alterations to database structures and other
@@ -15,7 +28,7 @@
 // will tell you what you need to do.
 //
 // The commands in here will all be database-neutral,
-// using the functions defined in lib/ddllib.php
+// using the functions defined in lib/ddllib.php.
 
 function xmldb_block_links_upgrade($oldversion=0) {
 
@@ -23,18 +36,16 @@ function xmldb_block_links_upgrade($oldversion=0) {
 
     $result = true;
 
-/// And upgrade begins here. For each one, you'll need one 
-/// block of code similar to the next one. Please, delete 
-/// this comment lines once this file start handling proper
-/// upgrade code.
+    // And upgrade begins here. For each one, you'll need one
+    // block of code similar to the next one. Please, delete
+    // this comment lines once this file start handling proper
+    // upgrade code.
 
     if ($oldversion < 2006053011 and $result) {
-        $result = true; //Nothing to do
+        $result = true; // Nothing to do.
     }
 
-    //Finally, return result
+    // Finally, return result.
 
     return $result;
 }
-
-?>
