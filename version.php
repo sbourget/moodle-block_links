@@ -26,5 +26,4 @@
 
 $plugin->version = 2014073101;
 $plugin->requires = 2010112400;
-
-?>
+$plugin->component = 'block_links';
