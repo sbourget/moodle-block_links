@@ -15,13 +15,13 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This block generates a simple list of links based on the users 
+ * This block generates a simple list of links based on the users
  * department association
  *
  * @package   block_links
  * @copyright 2006 Sean Madden - RIT for Goffstown School District
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * 
+ *
  * Reference block by Tom Flannaghan and Andrew Walker - Alton College
  * Modified by Sean Madden - RIT for Goffstown School District (for Moodle 1.6)
  * Updated for Moodle 1.8+ by Stephen Bourget - Goffstown School District

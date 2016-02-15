@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This block generates a simple list of links based on the users 
+ * This block generates a simple list of links based on the users
  * department association
  *
  * @package   block_links

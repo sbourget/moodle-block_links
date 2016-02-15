@@ -16,7 +16,7 @@
 
 
 /**
- * This block generates a simple list of links based on the users 
+ * This block generates a simple list of links based on the users
  * department association
  *
  * @package   block_links
@@ -97,9 +97,15 @@ $table->setup();
 foreach ($rs as $index => $link) {
 
     if ($link->defaultshow == '1') {
-        $show = '<img src="'. $OUTPUT->pix_url('clear', 'block_links') .'" height="10" width="10" alt="'.get_string('yes').'" title="'.get_string('yes').'" />'."\n";
+        $show = html_writer::empty_tag('img', array('src' => $OUTPUT->pix_url('clear', 'block_links'),
+                                                    'alt' => get_string('yes'),
+                                                    'title' => get_string('yes'),
+                                                    'class' => 'smallicon'));
     } else {
-        $show = '<img src="'. $OUTPUT->pix_url('delete', 'block_links') .'" height="11" width="11" alt="'.get_string('no').'" title="'.get_string('no').'" />'."\n";
+        $show = html_writer::empty_tag('img', array('src' => $OUTPUT->pix_url('delete', 'block_links'),
+                                                    'alt' => get_string('no'),
+                                                    'title' => get_string('no'),
+                                                    'class' => 'smallicon'));
     }
 
     $editurl = new moodle_url('/blocks/links/edit.php', array('id' => $link->id));
@@ -107,7 +113,9 @@ foreach ($rs as $index => $link) {
 
     $deleteurl = new moodle_url('/blocks/links/config_global_action.php', array('delete' => $link->id, 'sesskey' => sesskey()));
     $deleteicon = new pix_icon('t/delete', get_string('delete'));
-    $deleteaction = $OUTPUT->action_icon($deleteurl, $deleteicon, new confirm_action(get_string('deletelinkconfirm', 'block_links')));
+    $deleteaction = $OUTPUT->action_icon($deleteurl, $deleteicon,
+                    new confirm_action(get_string('deletelinkconfirm', 'block_links')));
+
     $icons = $editaction . ' ' . $deleteaction;
 
     $table->add_data(array($link->linktext,
@@ -130,3 +138,4 @@ echo html_writer::end_tag('div');
 echo html_writer::end_tag('div');
 
 echo $OUTPUT->footer();
+

@@ -16,7 +16,7 @@
 
 
 /**
- * This block generates a simple list of links based on the users 
+ * This block generates a simple list of links based on the users
  * department association
  *
  * @package   block_links
@@ -63,7 +63,8 @@ class restore_links_block_structure_step extends restore_structure_step {
 
                 // The link already exists, use it.
                 if ($linkid = $DB->get_field_select('block_links', 'id', $select, $params, IGNORE_MULTIPLE)) {
-                    // The record exists (Do nothing)!
+                    // The record exists.
+                    unset($linkid);
 
                 } else {
                     // The link doesn't exist, create it.

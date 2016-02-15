@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This block generates a simple list of links based on the users 
+ * This block generates a simple list of links based on the users
  * department association
  *
  * @package   block_links
@@ -30,7 +30,7 @@ $id = optional_param('id', 0, PARAM_INT); // 0 means create new link.
 require_login();
 $context = context_system::instance();
 if ((!has_capability('moodle/site:manageblocks', $context)) || (!has_capability('block/links:managelinks', $context))) {
-    print_error('accessdenied','block_links');
+    print_error('accessdenied', 'block_links');
 }
 $PAGE->set_context($context);
 $returnurl = new moodle_url('/blocks/links/config_global_action.php', array());
