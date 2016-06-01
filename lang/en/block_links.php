@@ -30,6 +30,7 @@ $string['editlink'] = 'Update link';
 $string['eventlinkadded'] = 'Website link added';
 $string['eventlinkdeleted'] = 'Website link deleted';
 $string['eventlinkupdated'] = 'Website link updated';
+$string['eventlinkfollowed'] = 'Website link followed';
 $string['links'] = 'Links';
 $string['links:managelinks'] = 'Add / Edit links';
 $string['links:addinstance'] = 'Add the links block';

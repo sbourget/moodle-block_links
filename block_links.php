@@ -41,7 +41,7 @@ class block_links extends block_list {
     }
 
     public function get_content() {
-        global $CFG, $DB, $USER;
+        global $CFG, $DB, $USER, $OUTPUT;
         if ($this->content !== null) {
             return $this->content;
         }
@@ -98,10 +98,12 @@ class block_links extends block_list {
             $context = context_system::instance(); // Pinned blocks do not have own context.
         }
         if ((has_capability('moodle/site:manageblocks', $context)) && (has_capability('block/links:managelinks', $context))) {
-            $link->url = $CFG->wwwroot."/blocks/links/config_global_action.php";
+            $link->url = new moodle_url('/blocks/links/config_global_action.php');
             $link->linktext = "<b>".get_string('managelinks', 'block_links')."</b>";
             $link->notes = "";
-            $this->add_link($link);
+            $this->content->items[] = '<a href="' . $link->url.'">'. $link->linktext .
+                    '</a> <em>' .$link->notes . '</em>';
+            $this->content->icons[] = '<img src="'. $OUTPUT->pix_url('web', 'block_links').'" height="16" width="16" alt="" />';
         }
 
         return $this->content;
@@ -111,8 +113,9 @@ class block_links extends block_list {
         global $CFG, $OUTPUT;
 
         $target = !empty($CFG->block_links_window) ? ' target="_blank"' : '';
+        $url = new moodle_url('/blocks/links/follow.php', array('id' => $link->id));
 
-        $this->content->items[] = '<a href="' . $link->url.'"' . $target . '>'. $link->linktext .
+        $this->content->items[] = '<a href="' . $url.'"' . $target . '>'. $link->linktext .
                 '</a> <em>' .$link->notes . '</em>';
         $this->content->icons[] = '<img src="'. $OUTPUT->pix_url('web', 'block_links').'" height="16" width="16" alt="" />';
     }

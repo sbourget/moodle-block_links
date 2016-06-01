@@ -14,16 +14,22 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-
 /**
  * This block generates a simple list of links based on the users
  * department association
  *
  * @package   block_links
- * @copyright 2010 Stephen Bourget
+ * @copyright 2013 Stephen Bourget
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+require_once('../../config.php');
+$id = required_param('id', PARAM_INT);
+$record = $DB->get_record('block_links', array('id' => $id), '*', MUST_EXIST);
+$context = context_system::instance();
+$params = array('context' => $context, 'objectid' => $id);
+$event = \block_links\event\link_followed::create($params);
+$event->trigger();
+redirect($record->url);
 
-$plugin->version = 2014073106;
-$plugin->requires = 2010112400;
-$plugin->component = 'block_links';
+
+
