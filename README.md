@@ -26,4 +26,4 @@ Developed for Goffstown School District (Goffstown NH, USA) Many ideas and code 
 
 Installation:
     * see http://docs.moodle.org/en/Installing_contributed_modules_or_plugins
-    * Works with Moodle 2.0 or Later
+    * Works with Moodle 2.7 or Later
