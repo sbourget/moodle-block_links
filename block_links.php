@@ -30,22 +30,26 @@
 require_once($CFG->dirroot.'/blocks/links/lib.php');
 
 class block_links extends block_list {
+
     public function init() {
         $this->title = get_string('links', 'block_links');
     }
 
     public function specialization() {
-        global $CFG;
 
-        $this->title = !empty($CFG->block_links_title) ? $CFG->block_links_title : $this->title;
+        $blockconfig = get_config('block_links');
+        if (!empty($blockconfig->default_title)) {
+            $this->title = $blockconfig->default_title;
+        }
     }
 
     public function get_content() {
-        global $CFG, $DB, $USER, $OUTPUT;
+        global $DB, $USER, $OUTPUT;
         if ($this->content !== null) {
             return $this->content;
         }
 
+        $blockconfig = get_config('block_links');
         $this->content = new stdClass();
         $this->content->items = array();
         $this->content->icons = array();
@@ -62,7 +66,7 @@ class block_links extends block_list {
                 $this->add_link($link);
             } else {
                 // Check to see if the user should be able to view it.
-                switch($CFG->block_links_profile_field) {
+                switch($blockconfig->profile_field) {
                     case BLOCK_LINKS_INSTITUTION:
                         if ($link->department == $USER->institution) {
                             $this->add_link($link);
@@ -110,9 +114,10 @@ class block_links extends block_list {
     }
 
     private function add_link($link) {
-        global $CFG, $OUTPUT;
+        global $OUTPUT;
+        $blockconfig = get_config('block_links');
 
-        $target = !empty($CFG->block_links_window) ? ' target="_blank"' : '';
+        $target = 'target="'.$blockconfig->link_target.'"';
         $url = new moodle_url('/blocks/links/follow.php', array('id' => $link->id));
 
         $this->content->items[] = '<a href="' . $url.'"' . $target . '>'. $link->linktext .

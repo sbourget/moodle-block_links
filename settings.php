@@ -29,7 +29,7 @@ if ($ADMIN->fulltree) {
     // Load Constants.
     require_once($CFG->dirroot.'/blocks/links/lib.php');
 
-    $settings->add(new admin_setting_configtext('block_links_title', get_string('blocktitle', 'block_links'),
+    $settings->add(new admin_setting_configtext('block_links/default_title', get_string('blocktitle', 'block_links'),
                        get_string('blocktitle_desc', 'block_links'), get_string('blockname', 'block_links'), PARAM_TEXT));
 
     $url = new moodle_url('/blocks/links/config_global_action.php');
@@ -42,6 +42,13 @@ if ($ADMIN->fulltree) {
     $options[BLOCK_LINKS_CITY] = get_string('city', 'moodle');
     $options[BLOCK_LINKS_COUNTRY] = get_string('country', 'moodle');
 
-    $settings->add(new admin_setting_configselect('block_links_profile_field', get_string('profilefield', 'block_links'),
+    $settings->add(new admin_setting_configselect('block_links/profile_field', get_string('profilefield', 'block_links'),
                    get_string('profilefield_desc', 'block_links'), BLOCK_LINKS_INSTITUTION, $options));
+
+    $options = array();
+    $options[BLOCK_LINKS_WINDOW_NEW] = get_string('newwindow', 'block_links');
+    $options[BLOCK_LINKS_WINDOW_PARENT] = get_string('parentwindow', 'block_links');
+    $options[BLOCK_LINKS_WINDOW_SELF] = get_string('selfwindow', 'block_links');
+    $settings->add(new admin_setting_configselect('block_links/link_target', get_string('linktarget', 'block_links'),
+                   get_string('linktarget_desc', 'block_links'), BLOCK_LINKS_WINDOW_NEW, $options));
 }

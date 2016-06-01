@@ -29,3 +29,7 @@ define('BLOCK_LINKS_INSTITUTION', 1);
 define('BLOCK_LINKS_DEPARTMENT', 2);
 define('BLOCK_LINKS_CITY', 3);
 define('BLOCK_LINKS_COUNTRY', 4);
+
+define('BLOCK_LINKS_WINDOW_NEW', '_blank');
+define('BLOCK_LINKS_WINDOW_PARENT', '_parent');
+define('BLOCK_LINKS_WINDOW_SELF', '_self');

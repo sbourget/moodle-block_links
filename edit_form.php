@@ -44,7 +44,8 @@ class link_edit_form extends moodleform {
     }
 
     public function definition() {
-        global $DB, $CFG;
+        global $DB;
+        $blockconfig = get_config('block_links');
         $mform =& $this->_form;
 
         // Then show the fields about where this block appears.
@@ -72,7 +73,7 @@ class link_edit_form extends moodleform {
         $options = array();
         $options['All'] = get_string('all', 'block_links');
 
-        switch($CFG->block_links_profile_field) {
+        switch($blockconfig->profile_field) {
             case BLOCK_LINKS_INSTITUTION:
                 $sql = "SELECT DISTINCT institution FROM {user} ORDER BY institution";
                 $categories = $DB->get_records_sql($sql);

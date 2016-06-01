@@ -24,6 +24,6 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$plugin->version = 2014073106;
+$plugin->version = 2016060100;
 $plugin->requires = 2010112400;
 $plugin->component = 'block_links';

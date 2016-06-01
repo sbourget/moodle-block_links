@@ -32,20 +32,25 @@
 
 function xmldb_block_links_upgrade($oldversion=0) {
 
-    global $CFG, $THEME, $db;
+    global $CFG, $DB;
 
-    $result = true;
-
-    // And upgrade begins here. For each one, you'll need one
-    // block of code similar to the next one. Please, delete
-    // this comment lines once this file start handling proper
-    // upgrade code.
-
-    if ($oldversion < 2006053011 and $result) {
-        $result = true; // Nothing to do.
+    if ($oldversion < 2016060100) {
+        // Upgrade $CFG properties to use config_plugins.
+        if (isset($CFG->block_links_profile_field)) {
+            set_config('profile_field', $CFG->block_links_profile_field, 'block_links');
+            unset_config('block_links_profile_field');
+        }
+        if (isset($CFG->block_links_window)) {
+            set_config('link_target', $CFG->block_links_window, 'block_links');
+            unset_config('block_links_window');
+        }
+        if (isset($CFG->block_links_title)) {
+            set_config('default_title', $CFG->block_links_title, 'block_links');
+            unset_config('block_links_title');
+        }
     }
 
     // Finally, return result.
 
-    return $result;
+    return true;
 }
