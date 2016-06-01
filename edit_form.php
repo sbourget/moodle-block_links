@@ -28,17 +28,14 @@ require_once($CFG->libdir . '/formslib.php');
 require_once($CFG->dirroot.'/blocks/links/lib.php');
 
 class link_edit_form extends moodleform {
-    protected $isadding;
     protected $id;
     protected $linktext = '';
     protected $url = '';
     protected $notes = '';
-    protected $defaultshow = true;
-    protected $newwindow = 1;
-    protected $department = 'All';
+    protected $defaultshow = BLOCK_LINKS_SHOWLINK;
+    protected $department = BLOCK_LINKS_SHOW_EVERYONE;
 
-    public function __construct($actionurl, $isadding, $id) {
-        $this->isadding = $isadding;
+    public function __construct($actionurl, $id) {
         $this->id = $id;
         parent::__construct($actionurl);
     }
@@ -65,7 +62,7 @@ class link_edit_form extends moodleform {
         $mform->setType('notes', PARAM_TEXT);
 
         $mform->addElement('select', 'defaultshow', get_string('defaultshow', 'block_links'),
-                array(1 => get_string('yes'), 0 => get_string('no')));
+                array(BLOCK_LINKS_SHOWLINK => get_string('yes'), BLOCK_LINKS_HIDELINK => get_string('no')));
 
         $mform->setType('defaultshow', PARAM_INT);
         $mform->setDefault('defaultshow', $this->defaultshow);
