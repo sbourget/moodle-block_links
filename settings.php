@@ -32,7 +32,8 @@ if ($ADMIN->fulltree) {
     $settings->add(new admin_setting_configtext('block_links_title', get_string('blocktitle', 'block_links'),
                        get_string('blocktitle_desc', 'block_links'), get_string('blockname', 'block_links'), PARAM_TEXT));
 
-    $link = '<a href="'.$CFG->wwwroot.'/blocks/links/config_global_action.php">'.get_string('managelinks', 'block_links').'</a>';
+    $url = new moodle_url('/blocks/links/config_global_action.php');
+    $link = '<a href="'.$url.'">'.get_string('managelinks', 'block_links').'</a>';
     $settings->add(new admin_setting_heading('block_links_addheading', '', $link));
 
     $options = array();
