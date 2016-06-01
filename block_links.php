@@ -44,55 +44,26 @@ class block_links extends block_list {
     }
 
     public function get_content() {
-        global $DB, $USER, $OUTPUT;
+        global $DB, $OUTPUT;
         if ($this->content !== null) {
             return $this->content;
         }
 
-        $blockconfig = get_config('block_links');
         $this->content = new stdClass();
         $this->content->items = array();
         $this->content->icons = array();
         $this->content->footer = '';
 
-        $rs = $DB->get_records('block_links', array('defaultshow' => '1'), 'linktext');
+        $rs = $DB->get_records('block_links', array('defaultshow' => BLOCK_LINKS_SHOWLINK), 'linktext');
         if (!is_array($rs)) {
             $rs = array();
         }
 
         $link = new stdClass();
         foreach ($rs as $link) {
-            if ($link->department == 'All') {
+            if (block_links_check_permissions($link)) {
+                // Does the user have permission, or is it viewable to all?
                 $this->add_link($link);
-            } else {
-                // Check to see if the user should be able to view it.
-                switch($blockconfig->profile_field) {
-                    case BLOCK_LINKS_INSTITUTION:
-                        if ($link->department == $USER->institution) {
-                            $this->add_link($link);
-                        }
-                        break;
-
-                    case BLOCK_LINKS_DEPARTMENT:
-                        if ($link->department == $USER->department) {
-                            $this->add_link($link);
-                        }
-                        break;
-
-                    case BLOCK_LINKS_CITY:
-                        if ($link->department == $USER->city) {
-                            $this->add_link($link);
-                        }
-                        break;
-
-                    case BLOCK_LINKS_COUNTRY:
-                        if ($link->department == $USER->country) {
-                            $this->add_link($link);
-                        }
-                        break;
-
-                    default:
-                }
             }
         }
 

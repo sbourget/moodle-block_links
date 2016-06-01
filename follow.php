@@ -19,17 +19,26 @@
  * department association
  *
  * @package   block_links
- * @copyright 2013 Stephen Bourget
+ * @copyright 2016 Stephen Bourget
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 require_once('../../config.php');
+require_once($CFG->dirroot.'/blocks/links/lib.php');
+
 $id = required_param('id', PARAM_INT);
 $record = $DB->get_record('block_links', array('id' => $id), '*', MUST_EXIST);
-$context = context_system::instance();
-$params = array('context' => $context, 'objectid' => $id);
-$event = \block_links\event\link_followed::create($params);
-$event->trigger();
-redirect($record->url);
+
+// Verify link is actually available, and user can follow it.
+if (block_links_check_permissions($record)) {
+    $context = context_system::instance();
+    $params = array('context' => $context, 'objectid' => $id);
+    $event = \block_links\event\link_followed::create($params);
+    $event->trigger();
+    redirect($record->url);
+} else {
+    // User has no access to this link.  Print an error.
+    print_error('linkunavailable', 'block_links');
+}
 
 
 

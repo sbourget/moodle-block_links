@@ -30,6 +30,64 @@ define('BLOCK_LINKS_DEPARTMENT', 2);
 define('BLOCK_LINKS_CITY', 3);
 define('BLOCK_LINKS_COUNTRY', 4);
 
+define('BLOCK_LINKS_SHOWLINK', 1);
+define('BLOCK_LINKS_HIDELINK', 0);
+define('BLOCK_LINKS_SHOW_EVERYONE', 'All');
+
 define('BLOCK_LINKS_WINDOW_NEW', '_blank');
 define('BLOCK_LINKS_WINDOW_PARENT', '_parent');
 define('BLOCK_LINKS_WINDOW_SELF', '_self');
+
+/**
+ * Checks permissions whether a user can access a specific link.
+ * @global stdclass $USER
+ * @param stdclass $link
+ * @return boolean
+ */
+function block_links_check_permissions($link) {
+    global $USER;
+
+    // Check to see if the link is hidden.
+    if ($link->defaultshow == BLOCK_LINKS_HIDELINK) {
+        return false;
+    }
+
+    // Can everyone see it?
+    if ($link->department == BLOCK_LINKS_SHOW_EVERYONE) {
+        return true;
+    }
+
+    // Do they match the user profile restriction?.
+    $blockconfig = get_config('block_links');
+
+    switch($blockconfig->profile_field) {
+        case BLOCK_LINKS_INSTITUTION:
+            if ($link->department == $USER->institution) {
+                return true;
+            }
+            break;
+
+        case BLOCK_LINKS_DEPARTMENT:
+            if ($link->department == $USER->department) {
+                return true;
+            }
+            break;
+
+        case BLOCK_LINKS_CITY:
+            if ($link->department == $USER->city) {
+                return true;
+            }
+            break;
+
+        case BLOCK_LINKS_COUNTRY:
+            if ($link->department == $USER->country) {
+                return true;
+            }
+            break;
+
+        default:
+            return false;
+    }
+    return false;
+
+}

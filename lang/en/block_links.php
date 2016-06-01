@@ -38,6 +38,7 @@ $string['links:myaddinstance'] = 'Add the links block to my home';
 $string['linktarget'] = 'Link target';
 $string['linktarget_desc'] = 'How should the links should open';
 $string['linktext'] = 'Link text';
+$string['linkunavailable'] = 'The link is either unavailable or you do not have permission to view it';
 $string['managelinks'] = 'Add/Edit Links';
 $string['newwindow'] = 'New window';
 $string['notes'] = 'Additional text';
