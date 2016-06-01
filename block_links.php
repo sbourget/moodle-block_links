@@ -112,8 +112,9 @@ class block_links extends block_list {
 
         $target = !empty($CFG->block_links_window) ? ' target="_blank"' : '';
 
-        $this->content->items[] = '<a href="' . $link->url.'"' . $target . '>'. $link->linktext . '</a> <em>' .$link->notes . '</em>';
-        $this->content->icons[] = '<img src="'.$OUTPUT->pix_url('web', 'block_links').'" height="16" width="16" alt="" />';
+        $this->content->items[] = '<a href="' . $link->url.'"' . $target . '>'. $link->linktext .
+                '</a> <em>' .$link->notes . '</em>';
+        $this->content->icons[] = '<img src="'. $OUTPUT->pix_url('web', 'block_links').'" height="16" width="16" alt="" />';
     }
 
     public function has_config() {

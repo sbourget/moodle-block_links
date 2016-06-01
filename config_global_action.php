@@ -49,7 +49,12 @@ $PAGE->set_title($strmanagelinks);
 $PAGE->set_heading(format_string($strmanagelinks));
 $PAGE->set_pagelayout('standard');
 
-if ($delete != -1) {
+if (($delete > 0) && confirm_sesskey()) {
+    // Trigger event about deleting the link.
+    $params = array('context' => $context, 'objectid' => $delete);
+    $event = \block_links\event\link_deleted::create($params);
+    $event->trigger();
+
     $DB->delete_records('block_links', array('id' => $delete));
 }
 
@@ -138,4 +143,3 @@ echo html_writer::end_tag('div');
 echo html_writer::end_tag('div');
 
 echo $OUTPUT->footer();
-

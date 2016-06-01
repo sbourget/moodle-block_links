@@ -37,36 +37,46 @@ $returnurl = new moodle_url('/blocks/links/config_global_action.php', array());
 $PAGE->set_url('/blocks/links/edit.php', array());
 $PAGE->set_pagelayout('standard');
 if ($id > 0) {
-    $isadding = false;
-    $record = $DB->get_record('block_links', array('id' => $id), '*', MUST_EXIST);
-} else {
-    $isadding = true;
-    $record = new stdClass;
-}
-$mform = new link_edit_form($PAGE->url, $isadding, $id);
-$mform->set_data($record);
+    // Updating an existing record.
+    $strtitle = get_string('editlink', 'block_links');
 
+    $mform = new link_edit_form($PAGE->url, false, $id);
+    $record = $DB->get_record('block_links', array('id' => $id), '*', MUST_EXIST);
+    $mform->set_data($record);
+} else {
+    // Adding a new record.
+    $strtitle = get_string('addlink', 'block_links');
+
+    $mform = new link_edit_form($PAGE->url, true, $id);
+    $record = new stdClass;
+    $record->id = 0;
+    $mform->set_data($record);
+}
 if ($mform->is_cancelled()) {
 
     redirect($returnurl);
 
 } else if ($data = $mform->get_data()) {
 
-    if ($isadding) {
-        $DB->insert_record('block_links', $data);
-    } else {
-        $data->id = $id;
-        $DB->update_record('block_links', $data);
+    if ($data->id == 0) {
+        $id = $DB->insert_record('block_links', $data);
+        // Trigger event about adding the link.
+        $params = array('context' => $context, 'objectid' => $id);
+        $event = \block_links\event\link_added::create($params);
+        $event->add_record_snapshot('block_links', $data);
+        $event->trigger();
+    } else if (isset($data->id) && (int)$data->id > 0) {
+        $id = $DB->update_record('block_links', $data);
+        // Trigger event about updating the link.
+        $params = array('context' => $context, 'objectid' => $data->id);
+        $event = \block_links\event\link_updated::create($params);
+        $event->add_record_snapshot('block_links', $data);
+        $event->trigger();
     }
 
     redirect($returnurl);
 
 } else {
-    if ($isadding) {
-        $strtitle = get_string('addlink', 'block_links');
-    } else {
-        $strtitle = get_string('editlink', 'block_links');
-    }
 
     $strmanagelinks = get_string('managelinks', 'block_links');
     $PAGE->navbar->add(get_string('blocks'));
