@@ -74,11 +74,10 @@ class block_links extends block_list {
         }
         if ((has_capability('moodle/site:manageblocks', $context)) && (has_capability('block/links:managelinks', $context))) {
             $link->url = new moodle_url('/blocks/links/config_global_action.php');
-            $link->linktext = "<b>".get_string('managelinks', 'block_links')."</b>";
-            $link->notes = "";
-            $this->content->items[] = '<a href="' . $link->url.'">'. $link->linktext .
-                    '</a> <em>' .$link->notes . '</em>';
-            $this->content->icons[] = '<img src="'. $OUTPUT->pix_url('web', 'block_links').'" height="16" width="16" alt="" />';
+            $link->linktext = html_writer::tag('span', get_string('managelinks', 'block_links'), array('class' => 'links-bold'));
+            $this->content->items[] = html_writer::tag('a', $link->linktext, array('href' => $link->url));
+            $this->content->icons[] = html_writer::empty_tag('img',
+                    array('src' => $OUTPUT->pix_url('web', 'block_links'), 'class' => 'icon'));
         }
 
         return $this->content;
@@ -88,12 +87,15 @@ class block_links extends block_list {
         global $OUTPUT;
         $blockconfig = get_config('block_links');
 
-        $target = 'target="'.$blockconfig->link_target.'"';
         $url = new moodle_url('/blocks/links/follow.php', array('id' => $link->id));
+        $linktext = html_writer::tag('a', $link->linktext, array('href' => $url, 'target' => $blockconfig->link_target));
+        if (!empty($link->notes)) {
+            $linktext .= html_writer::tag('span', $link->notes, array('class' => 'links-italic'));
+        }
+        $this->content->items[] = $linktext;
+        $this->content->icons[] = html_writer::empty_tag('img',
+                array('src' => $OUTPUT->pix_url('web', 'block_links'), 'class' => 'icon'));
 
-        $this->content->items[] = '<a href="' . $url.'"' . $target . '>'. $link->linktext .
-                '</a> <em>' .$link->notes . '</em>';
-        $this->content->icons[] = '<img src="'. $OUTPUT->pix_url('web', 'block_links').'" height="16" width="16" alt="" />';
     }
 
     public function has_config() {
