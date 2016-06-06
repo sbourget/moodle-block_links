@@ -27,3 +27,6 @@
 $plugin->version = 2016060100;
 $plugin->requires = 2014051200;
 $plugin->component = 'block_links';
+
+$plugin->maturity = MATURITY_STABLE;
+$plugin->release = "M2.9 (2016060100)";  // User-friendly version number.
