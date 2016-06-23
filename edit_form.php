@@ -122,7 +122,7 @@ class link_edit_form extends moodleform {
         }
 
         $mform->addElement('select', 'department', get_string('category', 'block_links'), $options);
-        $mform->setType('department', PARAM_ALPHANUMEXT);
+        $mform->setType('department', PARAM_TEXT);
         $mform->setDefault('department', 'All');
 
         // Hidden.
