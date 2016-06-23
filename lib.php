@@ -15,8 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This block generates a simple list of links based on the users
- * department association
+ * This block generates a simple list of links based on the users profile.
  *
  * @package   block_links
  * @copyright 2014 Stephen Bourget
@@ -40,7 +39,6 @@ define('BLOCK_LINKS_WINDOW_SELF', '_self');
 
 /**
  * Checks permissions whether a user can access a specific link.
- * @global stdclass $USER
  * @param stdclass $link
  * @return boolean
  */

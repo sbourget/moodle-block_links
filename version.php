@@ -16,17 +16,16 @@
 
 
 /**
- * This block generates a simple list of links based on the users
- * department association
+ * This block generates a simple list of links based on the users profile.
  *
  * @package   block_links
  * @copyright 2010 Stephen Bourget
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$plugin->version = 2016062300;
+$plugin->version = 2016062301;
 $plugin->requires = 2014051200;
 $plugin->component = 'block_links';
 
 $plugin->maturity = MATURITY_STABLE;
-$plugin->release = "M2.9 (2016062300)";  // User-friendly version number.
+$plugin->release = "M2.9 (2016062301)";  // User-friendly version number.

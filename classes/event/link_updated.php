@@ -93,6 +93,10 @@ class link_updated extends \core\event\base {
         }
     }
 
+    /**
+     * Backup / Restore mappings
+     * @return array
+     */
     public static function get_objectid_mapping() {
         return array('db' => 'block_links', 'restore' => 'block_links');
     }

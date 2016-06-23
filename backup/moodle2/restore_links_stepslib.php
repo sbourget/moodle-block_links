@@ -16,23 +16,29 @@
 
 
 /**
- * This block generates a simple list of links based on the users
- * department association
+ * This block generates a simple list of links based on the users profile.
  *
  * @package   block_links
  * @copyright 2013 Stephen Bourget
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-/**
- * Define all the restore steps that wll be used by the restore_links_block_task
- */
+defined('MOODLE_INTERNAL') || die();
 
 /**
- * Define the complete links structure for restore
+ * Define all the restore steps that wll be used by the restore_links_block_task
+ *
+ * @package   block_links
+ * @copyright 2013 Stephen Bourget
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class restore_links_block_structure_step extends restore_structure_step {
 
+    /**
+     * Define the structure of the restore workflow.
+     *
+     * @return restore_path_element $structure
+     */
     protected function define_structure() {
 
         $paths = array();
@@ -43,6 +49,12 @@ class restore_links_block_structure_step extends restore_structure_step {
         return $paths;
     }
 
+    /**
+     * Process a block restore.
+     *
+     * @param object $data The data in object form
+     * @return void
+     */
     public function process_block($data) {
         global $DB;
 

@@ -15,8 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This block generates a simple list of links based on the users
- * department association
+ * This block generates a simple list of links based on the users profile.
  *
  * @package   block_links
  * @copyright 2006 Sean Madden - RIT for Goffstown School District
@@ -27,14 +26,32 @@
  * Updated for Moodle 1.8+ by Stephen Bourget - Goffstown School District
  */
 
+defined('MOODLE_INTERNAL') || die();
 require_once($CFG->dirroot.'/blocks/links/lib.php');
 
+/**
+ * Block links class definition.
+ *
+ * This block can be added to a any page to display of list of
+ * hyperlinks based on the users department, institution, or profile settings.
+ *
+ * @package    block_activity_results
+ * @copyright  2009 Tim Hunt
+ * @copyright  2015 Stephen Bourget
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class block_links extends block_list {
 
+    /**
+     * Core function used to initialize the block.
+     */
     public function init() {
         $this->title = get_string('links', 'block_links');
     }
 
+    /**
+     * Allows for config setting to modify this block.
+     */
     public function specialization() {
 
         $blockconfig = get_config('block_links');
@@ -43,6 +60,10 @@ class block_links extends block_list {
         }
     }
 
+    /**
+     * Used to generate the content for the block.
+     * @return string
+     */
     public function get_content() {
         global $DB, $OUTPUT;
         if ($this->content !== null) {
@@ -83,6 +104,10 @@ class block_links extends block_list {
         return $this->content;
     }
 
+    /**
+     * Helper function to add links to a page
+     * @param stdClass $link
+     */
     private function add_link($link) {
         global $OUTPUT;
         $blockconfig = get_config('block_links');
@@ -98,6 +123,9 @@ class block_links extends block_list {
 
     }
 
+    /**
+     * Core function used to identify if the block has a config page.
+     */
     public function has_config() {
         return true;
     }

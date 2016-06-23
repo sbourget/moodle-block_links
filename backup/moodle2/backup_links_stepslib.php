@@ -14,10 +14,18 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * This block generates a simple list of links based on the users profile.
+ *
+ * @package   block_links
+ * @copyright 2013 Stephen Bourget
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+defined('MOODLE_INTERNAL') || die();
 
 /**
- * This block generates a simple list of links based on the users
- * department association
+ * Define the complete block structure for backup, with file and id annotations.
  *
  * @package   block_links
  * @copyright 2013 Stephen Bourget
@@ -25,6 +33,10 @@
  */
 class backup_links_block_structure_step extends backup_block_structure_step {
 
+    /**
+     * Define the structure for the links block.
+     * @return void
+     */
     protected function define_structure() {
 
         // Define each element separated.

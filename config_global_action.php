@@ -16,8 +16,7 @@
 
 
 /**
- * This block generates a simple list of links based on the users
- * department association
+ * This block generates a simple list of links based on the users profile.
  *
  * @package   block_links
  * @copyright 2010 Stephen Bourget

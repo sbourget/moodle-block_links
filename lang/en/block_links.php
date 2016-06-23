@@ -13,6 +13,13 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+/**
+ * Strings for block_links, language 'en'
+ *
+ * @package   block_links
+ * @copyright 2016 Stephen Bourget
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 
 $string['accessdenied'] = 'Access Denied.';
 $string['additionalsettings'] = 'Additional Setings';
