@@ -24,9 +24,9 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$plugin->version = 2016060100;
+$plugin->version = 2016062300;
 $plugin->requires = 2014051200;
 $plugin->component = 'block_links';
 
 $plugin->maturity = MATURITY_STABLE;
-$plugin->release = "M2.9 (2016060100)";  // User-friendly version number.
+$plugin->release = "M2.9 (2016062300)";  // User-friendly version number.
