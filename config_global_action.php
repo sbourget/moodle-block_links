@@ -102,15 +102,9 @@ $table->setup();
 foreach ($rs as $index => $link) {
 
     if ($link->defaultshow == '1') {
-        $show = html_writer::empty_tag('img', array('src' => $OUTPUT->pix_url('clear', 'block_links'),
-                                                    'alt' => get_string('yes'),
-                                                    'title' => get_string('yes'),
-                                                    'class' => 'smallicon'));
+        $show = get_string('yes');
     } else {
-        $show = html_writer::empty_tag('img', array('src' => $OUTPUT->pix_url('delete', 'block_links'),
-                                                    'alt' => get_string('no'),
-                                                    'title' => get_string('no'),
-                                                    'class' => 'smallicon'));
+        $show = get_string('no');
     }
 
     $editurl = new moodle_url('/blocks/links/edit.php', array('id' => $link->id));
