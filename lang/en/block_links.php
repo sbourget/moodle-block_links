@@ -22,7 +22,7 @@
  */
 
 $string['accessdenied'] = 'Access Denied.';
-$string['additionalsettings'] = 'Additional Setings';
+$string['additionalsettings'] = 'Additional Settings';
 $string['addlink'] = 'Add a new link';
 $string['all'] = 'All';
 $string['blockname'] = 'Learning Resources';
