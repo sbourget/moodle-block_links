@@ -27,19 +27,63 @@ defined('MOODLE_INTERNAL') || die();
 require_once($CFG->libdir . '/formslib.php');
 require_once($CFG->dirroot.'/blocks/links/lib.php');
 
+/**
+ * This defines the edit form for managing the links.
+ *
+ * @package   block_links
+ * @copyright 2010 Stephen Bourget
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class link_edit_form extends moodleform {
+    /**
+     * Link ID.
+     * @var int 
+     */
     protected $id;
+
+    /**
+     * Link text to display.
+     * @var string 
+     */
     protected $linktext = '';
+
+    /**
+     * URL of web-link.
+     * @var string
+     */
     protected $url = '';
+
+    /**
+     * Additional notes to display.
+     * @var string
+     */
     protected $notes = '';
+
+    /**
+     * Default display setting
+     * @var boolean
+     */
     protected $defaultshow = BLOCK_LINKS_SHOWLINK;
+
+    /**
+     * Profile setting to match when displaying the link.
+     * @var string
+     */
     protected $department = BLOCK_LINKS_SHOW_EVERYONE;
 
+    /**
+     * Constructor.
+     * @param string $actionurl
+     * @param int $id
+     */
     public function __construct($actionurl, $id) {
         $this->id = $id;
         parent::__construct($actionurl);
     }
 
+    /**
+     * Form definition.
+     */
     public function definition() {
         global $DB;
         $blockconfig = get_config('block_links');

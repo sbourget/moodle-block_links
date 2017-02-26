@@ -35,8 +35,7 @@ require_once($CFG->dirroot.'/blocks/links/lib.php');
  * This block can be added to a any page to display of list of
  * hyperlinks based on the users department, institution, or profile settings.
  *
- * @package    block_activity_results
- * @copyright  2009 Tim Hunt
+ * @package   block_links
  * @copyright  2015 Stephen Bourget
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -98,7 +97,7 @@ class block_links extends block_list {
             $link->linktext = html_writer::tag('span', get_string('managelinks', 'block_links'), array('class' => 'links-bold'));
             $this->content->items[] = html_writer::tag('a', $link->linktext, array('href' => $link->url));
             $this->content->icons[] = html_writer::empty_tag('img',
-                    array('src' => $OUTPUT->pix_url('web', 'block_links'), 'class' => 'icon'));
+                    array('src' => $OUTPUT->pix_url('web', 'block_links'), 'class' => 'icon', 'alt' => ''));
         }
 
         return $this->content;
