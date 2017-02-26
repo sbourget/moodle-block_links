@@ -26,6 +26,7 @@ require_once($CFG->dirroot.'/blocks/links/lib.php');
 
 $id = required_param('id', PARAM_INT);
 $record = $DB->get_record('block_links', array('id' => $id), '*', MUST_EXIST);
+require_login();
 
 // Verify link is actually available, and user can follow it.
 if (block_links_check_permissions($record)) {

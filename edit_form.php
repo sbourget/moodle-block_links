@@ -37,13 +37,13 @@ require_once($CFG->dirroot.'/blocks/links/lib.php');
 class link_edit_form extends moodleform {
     /**
      * Link ID.
-     * @var int 
+     * @var int
      */
     protected $id;
 
     /**
      * Link text to display.
-     * @var string 
+     * @var string
      */
     protected $linktext = '';
 
