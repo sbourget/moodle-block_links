@@ -10,6 +10,9 @@ php:
  - 5.6
  - 7.1
 
+addons:
+  postgresql: 9.3
+
 env:
  matrix:
   - DB=pgsql MOODLE_BRANCH=master
