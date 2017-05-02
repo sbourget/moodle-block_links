@@ -95,9 +95,8 @@ class block_links extends block_list {
         if ((has_capability('moodle/site:manageblocks', $context)) && (has_capability('block/links:managelinks', $context))) {
             $link->url = new moodle_url('/blocks/links/config_global_action.php');
             $link->linktext = html_writer::tag('span', get_string('managelinks', 'block_links'), array('class' => 'links-bold'));
-            $this->content->items[] = html_writer::tag('a', $link->linktext, array('href' => $link->url));
-            $this->content->icons[] = html_writer::empty_tag('img',
-                    array('src' => $OUTPUT->pix_url('web', 'block_links'), 'class' => 'icon', 'alt' => ''));
+            $icon = $OUTPUT->pix_icon('web', '', 'block_links');
+            $this->content->items[] = $icon . html_writer::tag('a', $link->linktext, array('href' => $link->url));
         }
 
         return $this->content;
@@ -116,9 +115,8 @@ class block_links extends block_list {
         if (!empty($link->notes)) {
             $linktext .= html_writer::tag('span', $link->notes, array('class' => 'links-italic'));
         }
-        $this->content->items[] = $linktext;
-        $this->content->icons[] = html_writer::empty_tag('img',
-                array('src' => $OUTPUT->pix_url('web', 'block_links'), 'class' => 'icon'));
+        $icon = $OUTPUT->pix_icon('web', '', 'block_links');
+        $this->content->items[] = $icon . $linktext;
 
     }
 
