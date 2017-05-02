@@ -12,7 +12,7 @@ GNU General Public License for more details:
 
 http:www.gnu.org/copyleft/gpl.html
 
-Links block for Moodle - Version 2.7+
+Links block for Moodle - Version 3.3+
 ===============================================================================
 [![Build Status](https://travis-ci.org/sbourget/moodle-block_links.svg?branch=master)](https://travis-ci.org/sbourget/moodle-block_links)
 
@@ -26,4 +26,4 @@ Developed for Goffstown School District (Goffstown NH, USA) Many ideas and code 
 
 Installation:
     * see http://docs.moodle.org/en/Installing_contributed_modules_or_plugins
-    * Works with Moodle 2.7 or Later
+    * Works with Moodle 3.3 or Later
