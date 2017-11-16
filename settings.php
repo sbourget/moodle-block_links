@@ -32,10 +32,11 @@ if ($ADMIN->fulltree) {
                        get_string('blocktitle_desc', 'block_links'), get_string('blockname', 'block_links'), PARAM_TEXT));
 
     $options = array();
-    $options[BLOCK_LINKS_INSTITUTION] = get_string('institution', 'moodle');
-    $options[BLOCK_LINKS_DEPARTMENT] = get_string('department', 'moodle');
     $options[BLOCK_LINKS_CITY] = get_string('city', 'moodle');
     $options[BLOCK_LINKS_COUNTRY] = get_string('country', 'moodle');
+    $options[BLOCK_LINKS_DEPARTMENT] = get_string('department', 'moodle');
+    $options[BLOCK_LINKS_DESCRIPTION] = get_string('description', 'moodle');
+    $options[BLOCK_LINKS_INSTITUTION] = get_string('institution', 'moodle');
 
     $settings->add(new admin_setting_configselect('block_links/profile_field', get_string('profilefield', 'block_links'),
                    get_string('profilefield_desc', 'block_links'), BLOCK_LINKS_INSTITUTION, $options));

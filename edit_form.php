@@ -155,6 +155,19 @@ class link_edit_form extends moodleform {
                 }
                 break;
 
+            case BLOCK_LINKS_DESCRIPTION:
+                $sql = "SELECT DISTINCT description FROM {user} ORDER BY description";
+                $categories = $DB->get_records_sql($sql);
+                foreach ($categories as $category) {
+                    $item = "";
+                    if (!empty($category->description)) {
+                        // Strip tags etc before display.
+                        $item = clean_param($category->description, PARAM_NOTAGS);
+                        $options[$item] = $item;
+                    }
+                }
+                break;
+
             default:
                 $sql = "SELECT DISTINCT institution FROM {user} ORDER BY institution";
                 $categories = $DB->get_records_sql($sql);

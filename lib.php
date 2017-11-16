@@ -29,6 +29,7 @@ define('BLOCK_LINKS_INSTITUTION', 1);
 define('BLOCK_LINKS_DEPARTMENT', 2);
 define('BLOCK_LINKS_CITY', 3);
 define('BLOCK_LINKS_COUNTRY', 4);
+define('BLOCK_LINKS_DESCRIPTION', 5);
 
 define('BLOCK_LINKS_SHOWLINK', 1);
 define('BLOCK_LINKS_HIDELINK', 0);
@@ -44,7 +45,7 @@ define('BLOCK_LINKS_WINDOW_SELF', '_self');
  * @return boolean
  */
 function block_links_check_permissions($link) {
-    global $USER;
+    global $USER, $DB;
 
     // Check to see if the link is hidden.
     if ($link->defaultshow == BLOCK_LINKS_HIDELINK) {
@@ -80,6 +81,18 @@ function block_links_check_permissions($link) {
 
         case BLOCK_LINKS_COUNTRY:
             if ($link->department == $USER->country) {
+                return true;
+            }
+            break;
+
+        case BLOCK_LINKS_DESCRIPTION:
+            // TODO: CONVERT THIS TO MUC.
+            static $description;
+            if (!isset($description)) {
+                $description = $DB->get_field('user', 'description', array('id' => $USER->id));
+                $description = clean_param($description, PARAM_NOTAGS);
+            }
+            if ($link->department == $description) {
                 return true;
             }
             break;
