@@ -95,15 +95,18 @@ class link_edit_form extends moodleform {
         $mform->addElement('text', 'linktext', get_string('linktext', 'block_links'), array('size' => 60));
         $mform->setType('linktext', PARAM_TEXT);
         $mform->addRule('linktext', null, 'required');
+        $mform->addRule('linktext', null, 'maxlength', 250);
 
         $mform->addElement('text', 'url', get_string('url', 'block_links'), array('size' => 60));
         $mform->setType('url', PARAM_URL);
         $mform->addRule('url', null, 'required');
+        $mform->addRule('url', null, 'maxlength', 250);
 
         $mform->addElement('header', 'additionalsettings', get_string('additionalsettings', 'block_links'));
 
         $mform->addElement('text', 'notes', get_string('notes', 'block_links'), array('size' => 60));
         $mform->setType('notes', PARAM_TEXT);
+        $mform->addRule('notes', null, 'maxlength', 250);
 
         $mform->addElement('select', 'defaultshow', get_string('defaultshow', 'block_links'),
                 array(BLOCK_LINKS_SHOWLINK => get_string('yes'), BLOCK_LINKS_HIDELINK => get_string('no')));
