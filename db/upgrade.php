@@ -32,6 +32,7 @@ defined('MOODLE_INTERNAL') || die();
 function xmldb_block_links_upgrade($oldversion=0) {
 
     global $CFG, $DB;
+    $dbman = $DB->get_manager();
 
     if ($oldversion < 2016060100) {
         // Upgrade $CFG properties to use config_plugins.
@@ -49,6 +50,58 @@ function xmldb_block_links_upgrade($oldversion=0) {
         }
 
         upgrade_block_savepoint(true, 2016060100, 'links');
+    }
+
+    if ($oldversion < 2018040300) {
+
+        // Changing precision of field url on table block_links to (255).
+        $table = new xmldb_table('block_links');
+        $field = new xmldb_field('url', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'linktext');
+
+        // Launch change of precision for field url.
+        $dbman->change_field_precision($table, $field);
+
+        // Links savepoint reached.
+        upgrade_block_savepoint(true, 2018040300, 'links');
+    }
+
+    if ($oldversion < 2018040301) {
+
+        // Changing precision of field notes on table block_links to (255).
+        $table = new xmldb_table('block_links');
+        $field = new xmldb_field('notes', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'url');
+
+        // Launch change of precision for field notes.
+        $dbman->change_field_precision($table, $field);
+
+        // Links savepoint reached.
+        upgrade_block_savepoint(true, 2018040301, 'links');
+    }
+
+    if ($oldversion < 2018040302) {
+
+        // Changing precision of field department on table block_links to (255).
+        $table = new xmldb_table('block_links');
+        $field = new xmldb_field('department', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'defaultshow');
+
+        // Launch change of precision for field department.
+        $dbman->change_field_precision($table, $field);
+
+        // Links savepoint reached.
+        upgrade_block_savepoint(true, 2018040302, 'links');
+    }
+
+    if ($oldversion < 2018040303) {
+
+        // Changing precision of field linktext on table block_links to (255).
+        $table = new xmldb_table('block_links');
+        $field = new xmldb_field('linktext', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'id');
+
+        // Launch change of precision for field linktext.
+        $dbman->change_field_precision($table, $field);
+
+        // Links savepoint reached.
+        upgrade_block_savepoint(true, 2018040303, 'links');
     }
 
     // Finally, return result.
