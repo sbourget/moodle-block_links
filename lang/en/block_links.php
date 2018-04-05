@@ -51,6 +51,7 @@ $string['newwindow'] = 'New window';
 $string['notes'] = 'Additional text';
 $string['parentwindow'] = 'Current window';
 $string['pluginname'] = 'Links';
+$string['privacy:metadata'] = 'The Links block only shows web links added by an administrator.';
 $string['profilefield'] = 'Profile field:';
 $string['profilefield_desc'] = 'Filter links for users based on which profile field.';
 $string['selfwindow'] = 'Current frame or window';
