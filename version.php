@@ -25,9 +25,9 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2018050800;
-$plugin->requires = 2017042100;
+$plugin->version = 2018050801;
+$plugin->requires = 2017111300;
 $plugin->component = 'block_links';
 
 $plugin->maturity = MATURITY_STABLE;
-$plugin->release = "M3.3 (2018050800)";  // User-friendly version number.
+$plugin->release = "M3.4 (2018050801)";  // User-friendly version number.
