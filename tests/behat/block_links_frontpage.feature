@@ -32,4 +32,3 @@ Feature: The links block allows administrators to define web links for all site 
     And I am on site homepage
     Then "Learning Resources" "block" should exist
     And I should see "Link to website" in the "Learning Resources" "block"
-
