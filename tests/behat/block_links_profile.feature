@@ -22,7 +22,7 @@ Feature: The links block allows administrators to define web links for all site 
     Given the following config values are set as admin:
       | profile_field | 1 | block_links |
     And I log in as "admin"
-    And I navigate to "Links" node in "Site administration>Plugins>Blocks"
+    And I navigate to "Plugins > Blocks > Links" in site administration
     And I follow "Add/Edit Links"
     And I press "Add a new link"
     And I set the following fields to these values:
@@ -33,7 +33,7 @@ Feature: The links block allows administrators to define web links for all site 
     And I press "Save changes"
     And I log out
     When I log in as "teacher1"
-    And I follow "Course 1"
+    And I am on "Course 1" course homepage
     And I turn editing mode on
     And I add the "Links" block
     And I turn editing mode off
@@ -41,7 +41,7 @@ Feature: The links block allows administrators to define web links for all site 
     And I should see "Link to website" in the "Learning Resources" "block"
     And I log out
     Then I log in as "teacher2"
-    And I follow "Course 1"
+    And I am on "Course 1" course homepage
     And "Learning Resources" "block" should not exist
 
   Scenario: Restrict links by the Department field
@@ -49,7 +49,7 @@ Feature: The links block allows administrators to define web links for all site 
     Given the following config values are set as admin:
       | profile_field | 2 | block_links |
     And I log in as "admin"
-    And I navigate to "Links" node in "Site administration>Plugins>Blocks"
+    And I navigate to "Plugins > Blocks > Links" in site administration
     And I follow "Add/Edit Links"
     And I press "Add a new link"
     And I set the following fields to these values:
@@ -60,7 +60,7 @@ Feature: The links block allows administrators to define web links for all site 
     And I press "Save changes"
     And I log out
     When I log in as "teacher1"
-    And I follow "Course 1"
+    And I am on "Course 1" course homepage
     And I turn editing mode on
     And I add the "Links" block
     And I turn editing mode off
@@ -68,7 +68,7 @@ Feature: The links block allows administrators to define web links for all site 
     And I should see "Link to website" in the "Learning Resources" "block"
     And I log out
     Then I log in as "teacher2"
-    And I follow "Course 1"
+    And I am on "Course 1" course homepage
     And "Learning Resources" "block" should not exist
 
   Scenario: Restrict links by the City / town field
@@ -76,7 +76,7 @@ Feature: The links block allows administrators to define web links for all site 
     Given the following config values are set as admin:
       | profile_field | 3 | block_links |
     And I log in as "admin"
-    And I navigate to "Links" node in "Site administration>Plugins>Blocks"
+    And I navigate to "Plugins > Blocks > Links" in site administration
     And I follow "Add/Edit Links"
     And I press "Add a new link"
     And I set the following fields to these values:
@@ -87,7 +87,7 @@ Feature: The links block allows administrators to define web links for all site 
     And I press "Save changes"
     And I log out
     When I log in as "teacher1"
-    And I follow "Course 1"
+    And I am on "Course 1" course homepage
     And I turn editing mode on
     And I add the "Links" block
     And I turn editing mode off
@@ -95,7 +95,7 @@ Feature: The links block allows administrators to define web links for all site 
     And I should see "Link to website" in the "Learning Resources" "block"
     And I log out
     Then I log in as "teacher2"
-    And I follow "Course 1"
+    And I am on "Course 1" course homepage
     And "Learning Resources" "block" should not exist
 
   Scenario: Restrict links by the Country
@@ -103,7 +103,7 @@ Feature: The links block allows administrators to define web links for all site 
     Given the following config values are set as admin:
       | profile_field | 4 | block_links |
     And I log in as "admin"
-    And I navigate to "Links" node in "Site administration>Plugins>Blocks"
+    And I navigate to "Plugins > Blocks > Links" in site administration
     And I follow "Add/Edit Links"
     And I press "Add a new link"
     And I set the following fields to these values:
@@ -114,7 +114,7 @@ Feature: The links block allows administrators to define web links for all site 
     And I press "Save changes"
     And I log out
     When I log in as "teacher1"
-    And I follow "Course 1"
+    And I am on "Course 1" course homepage
     And I turn editing mode on
     And I add the "Links" block
     And I turn editing mode off
@@ -122,5 +122,5 @@ Feature: The links block allows administrators to define web links for all site 
     And I should see "Link to website" in the "Learning Resources" "block"
     And I log out
     Then I log in as "teacher2"
-    And I follow "Course 1"
+    And I am on "Course 1" course homepage
     And "Learning Resources" "block" should not exist

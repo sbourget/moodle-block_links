@@ -17,7 +17,7 @@ Feature: The links block allows administrators to define web links for all site 
 
   Scenario: Add a link using the admin interface
     Given I log in as "admin"
-    And I navigate to "Links" node in "Site administration>Plugins>Blocks"
+    And I navigate to "Plugins > Blocks > Links" in site administration
     And I follow "Add/Edit Links"
     And I press "Add a new link"
     And I set the following fields to these values:
@@ -29,7 +29,7 @@ Feature: The links block allows administrators to define web links for all site 
 
   Scenario: Update a link using the admin interface
     Given I log in as "admin"
-    And I navigate to "Links" node in "Site administration>Plugins>Blocks"
+    And I navigate to "Plugins > Blocks > Links" in site administration
     And I follow "Add/Edit Links"
     And I press "Add a new link"
     And I set the following fields to these values:
@@ -48,7 +48,7 @@ Feature: The links block allows administrators to define web links for all site 
 
   Scenario: Remove a link using the admin interface
     Given I log in as "admin"
-    And I navigate to "Links" node in "Site administration>Plugins>Blocks"
+    And I navigate to "Plugins > Blocks > Links" in site administration
     And I follow "Add/Edit Links"
     And I press "Add a new link"
     And I set the following fields to these values:
@@ -62,7 +62,7 @@ Feature: The links block allows administrators to define web links for all site 
 
   Scenario: Add the block to a the course when there aren't any links
     Given I log in as "teacher1"
-    And I follow "Course 1"
+    And I am on "Course 1" course homepage
     And I turn editing mode on
     And I add the "Links" block
     When I turn editing mode off
@@ -70,7 +70,7 @@ Feature: The links block allows administrators to define web links for all site 
 
   Scenario: Add the block to a the course when all links are hidden
     Given I log in as "admin"
-    And I navigate to "Links" node in "Site administration>Plugins>Blocks"
+    And I navigate to "Plugins > Blocks > Links" in site administration
     And I follow "Add/Edit Links"
     And I press "Add a new link"
     And I set the following fields to these values:
@@ -81,7 +81,7 @@ Feature: The links block allows administrators to define web links for all site 
     And I should see "example.com" in the "Link to website" "table_row"
     And I log out
     And I log in as "teacher1"
-    And I follow "Course 1"
+    And I am on "Course 1" course homepage
     And I turn editing mode on
     And I add the "Links" block
     And I turn editing mode off
@@ -89,7 +89,7 @@ Feature: The links block allows administrators to define web links for all site 
 
   Scenario: Add the block to a the course when links are visible
     Given I log in as "admin"
-    And I navigate to "Links" node in "Site administration>Plugins>Blocks"
+    And I navigate to "Plugins > Blocks > Links" in site administration
     And I follow "Add/Edit Links"
     And I press "Add a new link"
     And I set the following fields to these values:
@@ -100,7 +100,7 @@ Feature: The links block allows administrators to define web links for all site 
     And I should see "example.com" in the "Link to website" "table_row"
     And I log out
     And I log in as "teacher1"
-    And I follow "Course 1"
+    And I am on "Course 1" course homepage
     And I turn editing mode on
     And I add the "Links" block
     And I turn editing mode off
@@ -111,7 +111,7 @@ Feature: The links block allows administrators to define web links for all site 
     Given the following config values are set as admin:
       | default_title | My new block name | block_links |
     And I log in as "admin"
-    And I navigate to "Links" node in "Site administration>Plugins>Blocks"
+    And I navigate to "Plugins > Blocks > Links" in site administration
     And I follow "Add/Edit Links"
     And I press "Add a new link"
     And I set the following fields to these values:
@@ -122,7 +122,7 @@ Feature: The links block allows administrators to define web links for all site 
     And I should see "example.com" in the "Link to website" "table_row"
     And I log out
     And I log in as "teacher1"
-    And I follow "Course 1"
+    And I am on "Course 1" course homepage
     And I turn editing mode on
     And I add the "Links" block
     And I turn editing mode off

@@ -15,7 +15,7 @@ Feature: The links block allows administrators to define web links for all site 
       | user | course | role |
       | teacher1 | C1 | editingteacher |  
     And I log in as "admin"
-    And I navigate to "Links" node in "Site administration>Plugins>Blocks"
+    And I navigate to "Plugins > Blocks > Links" in site administration
     And I follow "Add/Edit Links"
     And I press "Add a new link"
     And I set the following fields to these values:

@@ -15,7 +15,7 @@ Feature: The links block allows administrators to define web links for all site 
       | user | course | role |
       | teacher1 | C1 | editingteacher |  
     And I log in as "admin"
-    And I navigate to "Links" node in "Site administration>Plugins>Blocks"
+    And I navigate to "Plugins > Blocks > Links" in site administration
     And I follow "Add/Edit Links"
     And I press "Add a new link"
     And I set the following fields to these values:
@@ -25,7 +25,7 @@ Feature: The links block allows administrators to define web links for all site 
     And I press "Save changes"
     And I log out
     When I log in as "teacher1"
-    And I follow "Course 1"
+    And I am on "Course 1" course homepage
     And I turn editing mode on
     And I add the "Links" block
     Then "Learning Resources" "block" should exist

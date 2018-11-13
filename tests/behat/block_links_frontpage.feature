@@ -9,7 +9,7 @@ Feature: The links block allows administrators to define web links for all site 
       | username | firstname | lastname | email | idnumber |
       | teacher1 | Teacher | 1 | teacher1@example.com | T1 |  
     And I log in as "admin"
-    And I navigate to "Links" node in "Site administration>Plugins>Blocks"
+    And I navigate to "Plugins > Blocks > Links" in site administration
     And I follow "Add/Edit Links"
     And I press "Add a new link"
     And I set the following fields to these values:
@@ -18,7 +18,7 @@ Feature: The links block allows administrators to define web links for all site 
       | id_defaultshow | Yes          |
     And I press "Save changes"
     And I am on site homepage
-    And I navigate to "Turn editing on" node in "Front page settings"
+    And I navigate to "Turn editing on" in current page administration
     And I add the "Links" block
     And I log out
 
