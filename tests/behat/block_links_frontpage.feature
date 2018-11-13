@@ -1,5 +1,5 @@
 @block @block_links
-Feature: The links block allows administrators to define web links for all site users
+Feature: The links block allows administrators to define web links for all site users on the frontpage
   In order to view the links block
   As an admin
   I can add links block to the frontpage and view the contents
@@ -7,7 +7,7 @@ Feature: The links block allows administrators to define web links for all site 
   Background:
     Given the following "users" exist:
       | username | firstname | lastname | email | idnumber |
-      | teacher1 | Teacher | 1 | teacher1@example.com | T1 |  
+      | teacher1 | Teacher | 1 | teacher1@example.com | T1 |
     And I log in as "admin"
     And I navigate to "Plugins > Blocks > Links" in site administration
     And I follow "Add/Edit Links"

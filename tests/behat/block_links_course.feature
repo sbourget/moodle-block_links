@@ -1,5 +1,5 @@
 @block @block_links
-Feature: The links block allows administrators to define web links for all site users
+Feature: The links block allows administrators to define web links for all site users in a course
   In order to view the links block
   As a teacher
   I can add links block to a course and view the contents
@@ -13,7 +13,7 @@ Feature: The links block allows administrators to define web links for all site 
       | Course 1 | C1 | 0 |
     And the following "course enrolments" exist:
       | user | course | role |
-      | teacher1 | C1 | editingteacher |  
+      | teacher1 | C1 | editingteacher |
     And I log in as "admin"
     And I navigate to "Plugins > Blocks > Links" in site administration
     And I follow "Add/Edit Links"

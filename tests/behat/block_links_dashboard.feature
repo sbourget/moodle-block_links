@@ -1,10 +1,10 @@
 @block @block_links
-Feature: The links block allows administrators to define web links for all site users
+Feature: The links block allows administrators to define web links for all site users on the dashboard
   In order to view the links block
   As a user
   I can add links block to my dashboard and view the contents
 
-  Scenario: Add the block to a the course
+  Scenario: Add the block to a the dashboard
     Given the following "users" exist:
       | username | firstname | lastname | email | idnumber |
       | teacher1 | Teacher | 1 | teacher1@example.com | T1 |
@@ -13,7 +13,7 @@ Feature: The links block allows administrators to define web links for all site 
       | Course 1 | C1 | 0 |
     And the following "course enrolments" exist:
       | user | course | role |
-      | teacher1 | C1 | editingteacher |  
+      | teacher1 | C1 | editingteacher |
     And I log in as "admin"
     And I navigate to "Plugins > Blocks > Links" in site administration
     And I follow "Add/Edit Links"

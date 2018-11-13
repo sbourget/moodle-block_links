@@ -1,5 +1,5 @@
 @block @block_links
-Feature: The links block allows administrators to define web links for all site users
+Feature: The links block allows administrators to define web links for all site users based on profile
   In order to view the links block
   As a teacher
   I can add links block to a course and view the contents
