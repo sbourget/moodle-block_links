@@ -9,9 +9,10 @@ cache:
 php:
  - 7.0
  - 7.1
+ - 7.2
 
 addons:
-  postgresql: 9.3
+  postgresql: 9.4
 
 env:
  matrix:
