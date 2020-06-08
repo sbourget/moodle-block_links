@@ -20,6 +20,10 @@ php:
  - 7.2
  - 7.3
 
+services:
+  - mysql
+  - postgresql
+  
 env:
  matrix:
   - DB=pgsql MOODLE_BRANCH=master
