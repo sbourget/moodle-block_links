@@ -31,7 +31,7 @@ $delete = optional_param('delete', 0, PARAM_INT);
 require_login();
 $context = context_system::instance();
 if ((!has_capability('moodle/site:manageblocks', $context)) || (!has_capability('block/links:managelinks', $context))) {
-    print_error('accessdenied', 'block_links');
+    throw new moodle_exception('accessdenied', 'block_links');
 }
 
 $strmanagelinks = get_string('managelinks', 'block_links');

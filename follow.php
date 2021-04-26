@@ -37,7 +37,7 @@ if (block_links_check_permissions($record)) {
     redirect($record->url);
 } else {
     // User has no access to this link.  Print an error.
-    print_error('linkunavailable', 'block_links');
+    throw new moodle_exception('linkunavailable', 'block_links');
 }
 
 

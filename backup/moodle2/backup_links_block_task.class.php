@@ -68,7 +68,7 @@ class backup_links_block_task extends backup_block_task {
      * processed by the link decoder
      * @param string $content
      */
-    static public function encode_content_links($content) {
+    public static function encode_content_links($content) {
         return $content; // No special encoding of links.
     }
 }

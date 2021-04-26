@@ -29,7 +29,7 @@ $id = optional_param('id', 0, PARAM_INT); // 0 means create new link.
 require_login();
 $context = context_system::instance();
 if ((!has_capability('moodle/site:manageblocks', $context)) || (!has_capability('block/links:managelinks', $context))) {
-    print_error('accessdenied', 'block_links');
+    throw new moodle_exception('accessdenied', 'block_links');
 }
 $PAGE->set_context($context);
 $returnurl = new moodle_url('/blocks/links/config_global_action.php', array());

@@ -104,7 +104,7 @@ function xmldb_block_links_upgrade($oldversion=0) {
         upgrade_block_savepoint(true, 2018040303, 'links');
     }
 
-    // Finally, return result.
+    // Finally, return the result.
 
     return true;
 }
