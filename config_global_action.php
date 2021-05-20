@@ -106,6 +106,13 @@ foreach ($rs as $index => $link) {
         $show = get_string('no');
     }
 
+    // Default Key 'All' is stored in the DB,  Allow it to be translated.
+    if ($link->department === 'All') {
+        $department = get_string('all', 'block_links');
+    } else {
+        $department = $link->department;
+    }
+
     $editurl = new moodle_url('/blocks/links/edit.php', array('id' => $link->id));
     $editaction = $OUTPUT->action_icon($editurl, new pix_icon('t/edit', get_string('edit')));
 
@@ -120,7 +127,7 @@ foreach ($rs as $index => $link) {
                                html_writer::link($link->url, $link->url, array('target' => '_blank')),
                                $link->notes,
                                $show,
-                               $link->department,
+                               $department,
                                $icons));
 }
 
