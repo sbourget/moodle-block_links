@@ -18,7 +18,7 @@ Feature: The links block allows administrators to define web links for all site 
       | id_defaultshow | Yes          |
     And I press "Save changes"
     And I am on site homepage
-    And I navigate to "Turn editing on" in current page administration
+    And I turn editing mode on
     And I add the "Links" block
     And I log out
 

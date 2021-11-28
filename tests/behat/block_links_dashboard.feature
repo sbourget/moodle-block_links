@@ -25,7 +25,7 @@ Feature: The links block allows administrators to define web links for all site 
     And I press "Save changes"
     And I log out
     When I log in as "teacher1"
-    And I press "Customise this page"
+    And I turn editing mode on
     And I add the "Links" block
     Then "Learning Resources" "block" should exist
     And I should see "Link to website" in the "Learning Resources" "block"
