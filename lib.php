@@ -22,8 +22,6 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
 // Define some constants.
 define('BLOCK_LINKS_INSTITUTION', 1);
 define('BLOCK_LINKS_DEPARTMENT', 2);

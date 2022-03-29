@@ -24,8 +24,6 @@
 
 namespace block_links\privacy;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Privacy Subsystem for block_links implementing null_provider.
  *

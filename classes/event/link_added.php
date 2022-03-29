@@ -23,7 +23,6 @@
  */
 
 namespace block_links\event;
-defined('MOODLE_INTERNAL') || die();
 
 /**
  * The block_links link added event class.
