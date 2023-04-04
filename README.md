@@ -16,10 +16,10 @@ Links block for Moodle - Version 4.0
 ===============================================================================
 [![Build Status](https://travis-ci.org/sbourget/moodle-block_links.svg?branch=master)](https://travis-ci.org/sbourget/moodle-block_links)
 
-This 'block is allows a site administrator to display links to users based on specific user profile fields
+This 'block is allows a site administrator to display links to users based on specific user profile fields.
 
 Created by:
-    Sean Madden - Original block implementation for Moodle v1.6
+    Sean Madden - Original block implementation for Moodle v1.6.
     Stephen Bourget - Block maintenance and updates for later versions of Moodle (v1.8 - Present)
 
 Developed for Goffstown School District (Goffstown NH, USA) Many ideas and code were taken from other Moodle modules and Moodle itself
