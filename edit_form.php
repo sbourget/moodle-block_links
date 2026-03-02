@@ -14,7 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-
 /**
  * This block generates a simple list of links based on the users profile.
  *
@@ -25,7 +24,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 require_once($CFG->libdir . '/formslib.php');
-require_once($CFG->dirroot.'/blocks/links/lib.php');
+require_once($CFG->dirroot . '/blocks/links/lib.php');
 
 /**
  * This defines the edit form for managing the links.
@@ -61,7 +60,7 @@ class link_edit_form extends moodleform {
 
     /**
      * Default display setting
-     * @var boolean
+     * @var bool
      */
     protected $defaultshow = BLOCK_LINKS_SHOWLINK;
 
@@ -92,29 +91,32 @@ class link_edit_form extends moodleform {
         // Then show the fields about where this block appears.
         $mform->addElement('header', 'editlinkheader', get_string('managelinks', 'block_links'));
 
-        $mform->addElement('text', 'linktext', get_string('linktext', 'block_links'), array('size' => 60));
+        $mform->addElement('text', 'linktext', get_string('linktext', 'block_links'), ['size' => 60]);
         $mform->setType('linktext', PARAM_TEXT);
         $mform->addRule('linktext', null, 'required');
         $mform->addRule('linktext', null, 'maxlength', 250);
 
-        $mform->addElement('text', 'url', get_string('url', 'block_links'), array('size' => 60));
+        $mform->addElement('text', 'url', get_string('url', 'block_links'), ['size' => 60]);
         $mform->setType('url', PARAM_URL);
         $mform->addRule('url', null, 'required');
         $mform->addRule('url', null, 'maxlength', 250);
 
         $mform->addElement('header', 'additionalsettings', get_string('additionalsettings', 'block_links'));
 
-        $mform->addElement('text', 'notes', get_string('notes', 'block_links'), array('size' => 60));
+        $mform->addElement('text', 'notes', get_string('notes', 'block_links'), ['size' => 60]);
         $mform->setType('notes', PARAM_TEXT);
         $mform->addRule('notes', null, 'maxlength', 250);
 
-        $mform->addElement('select', 'defaultshow', get_string('defaultshow', 'block_links'),
-                array(BLOCK_LINKS_SHOWLINK => get_string('yes'), BLOCK_LINKS_HIDELINK => get_string('no')));
+        $mform->addElement('select',
+                'defaultshow',
+                get_string('defaultshow', 'block_links'),
+                [BLOCK_LINKS_SHOWLINK => get_string('yes'), BLOCK_LINKS_HIDELINK => get_string('no')]
+            );
 
         $mform->setType('defaultshow', PARAM_INT);
         $mform->setDefault('defaultshow', $this->defaultshow);
 
-        $options = array();
+        $options = [];
         $options['All'] = get_string('all', 'block_links');
 
         switch($blockconfig->profile_field) {
