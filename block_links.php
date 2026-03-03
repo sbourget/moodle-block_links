@@ -112,11 +112,10 @@ class block_links extends block_list {
         $url = new moodle_url('/blocks/links/follow.php', ['id' => $link->id]);
         $linktext = html_writer::tag('a', $link->linktext, ['href' => $url, 'target' => $blockconfig->link_target]);
         if (!empty($link->notes)) {
-            $linktext .= ' '. html_writer::tag('span', $link->notes, ['class' => 'links-italic']);
+            $linktext .= ' ' . html_writer::tag('span', $link->notes, ['class' => 'links-italic']);
         }
         $icon = $OUTPUT->pix_icon('web', '', 'block_links');
         $this->content->items[] = $icon . $linktext;
-
     }
 
     /**

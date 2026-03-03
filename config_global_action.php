@@ -21,6 +21,7 @@
  * @copyright 2010 Stephen Bourget
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
 require_once('../../config.php');
 require_once($CFG->libdir . '/tablelib.php');
 global $DB;
@@ -77,12 +78,14 @@ echo html_writer::start_tag('form', ['method' => 'post', 'action' => $baseurl]);
 $table = new flexible_table('links-administration');
 
 $table->define_columns(['linktext', 'url', 'notes', 'defaultshow', 'category', 'actions']);
-$table->define_headers(array(get_string('linktext', 'block_links'),
-                             get_string('url', 'block_links'),
-                             get_string('notes', 'block_links'),
-                             get_string('defaultshow', 'block_links'),
-                             get_string('category', 'block_links'),
-                             get_string('actions', 'moodle')));
+$table->define_headers([
+    get_string('linktext', 'block_links'),
+    get_string('url', 'block_links'),
+    get_string('notes', 'block_links'),
+    get_string('defaultshow', 'block_links'),
+    get_string('category', 'block_links'),
+    get_string('actions', 'moodle')
+]);
 $table->define_baseurl($baseurl);
 
 $table->set_attribute('cellspacing', '0');
@@ -98,7 +101,6 @@ $table->column_class('actions', 'actions');
 $table->setup();
 
 foreach ($rs as $index => $link) {
-
     if ($link->defaultshow == '1') {
         $show = get_string('yes');
     } else {
