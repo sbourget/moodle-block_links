@@ -14,7 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-
 /**
  * This block generates a simple list of links based on the users profile.
  *
@@ -37,7 +36,7 @@ if ((!has_capability('moodle/site:manageblocks', $context)) || (!has_capability(
 $strmanagelinks = get_string('managelinks', 'block_links');
 
 // Print the header.
-$urlparams = array();
+$urlparams = [];
 $baseurl = new moodle_url('/blocks/links/config_global_action.php', $urlparams);
 $PAGE->set_url($baseurl);
 $PAGE->set_context($context);
@@ -50,16 +49,16 @@ $PAGE->set_pagelayout('standard');
 
 if (($delete > 0) && confirm_sesskey()) {
     // Trigger event about deleting the link.
-    $params = array('context' => $context, 'objectid' => $delete);
+    $params = ['context' => $context, 'objectid' => $delete];
     $event = \block_links\event\link_deleted::create($params);
     $event->trigger();
 
-    $DB->delete_records('block_links', array('id' => $delete));
+    $DB->delete_records('block_links', ['id' => $delete]);
 }
 
 $rs = $DB->get_records('block_links', null, 'linktext');
 if (!is_array($rs)) {
-    $rs = array();
+    $rs = [];
 }
 
 // Check to see if we have any records.
@@ -69,15 +68,15 @@ if (count($rs) == 0) {
 
 echo $OUTPUT->header();
 
-echo html_writer::start_tag('div', array('class' => 'content'));
-echo html_writer::tag('h2', $strmanagelinks, array('class' => 'main'));
+echo html_writer::start_tag('div', ['class' => 'content']);
+echo html_writer::tag('h2', $strmanagelinks, ['class' => 'main']);
 
 // Generate the table.
-echo html_writer::start_tag('form', array('method' => 'post', 'action' => $baseurl));
+echo html_writer::start_tag('form', ['method' => 'post', 'action' => $baseurl]);
 
 $table = new flexible_table('links-administration');
 
-$table->define_columns(array('linktext', 'url', 'notes', 'defaultshow', 'category', 'actions'));
+$table->define_columns(['linktext', 'url', 'notes', 'defaultshow', 'category', 'actions']);
 $table->define_headers(array(get_string('linktext', 'block_links'),
                              get_string('url', 'block_links'),
                              get_string('notes', 'block_links'),
@@ -113,10 +112,10 @@ foreach ($rs as $index => $link) {
         $department = $link->department;
     }
 
-    $editurl = new moodle_url('/blocks/links/edit.php', array('id' => $link->id));
+    $editurl = new moodle_url('/blocks/links/edit.php', ['id' => $link->id]);
     $editaction = $OUTPUT->action_icon($editurl, new pix_icon('t/edit', get_string('edit')));
 
-    $deleteurl = new moodle_url('/blocks/links/config_global_action.php', array('delete' => $link->id, 'sesskey' => sesskey()));
+    $deleteurl = new moodle_url('/blocks/links/config_global_action.php', ['delete' => $link->id, 'sesskey' => sesskey()]);
     $deleteicon = new pix_icon('t/delete', get_string('delete'));
     $deleteaction = $OUTPUT->action_icon($deleteurl, $deleteicon,
                     new confirm_action(get_string('deletelinkconfirm', 'block_links')));
@@ -124,7 +123,7 @@ foreach ($rs as $index => $link) {
     $icons = $editaction . ' ' . $deleteaction;
 
     $table->add_data(array($link->linktext,
-                               html_writer::link($link->url, $link->url, array('target' => '_blank')),
+                               html_writer::link($link->url, $link->url, ['target' => '_blank']),
                                $link->notes,
                                $show,
                                $department,
@@ -134,10 +133,10 @@ foreach ($rs as $index => $link) {
 $table->print_html();
 
 echo html_writer::end_tag('form');
-echo html_writer::start_tag('div', array('class' => 'actionbuttons'));
+echo html_writer::start_tag('div', ['class' => 'actionbuttons']);
 
-echo html_writer::empty_tag('hr', array());
-$addurl = new moodle_url('/blocks/links/edit.php', array());
+echo html_writer::empty_tag('hr', []);
+$addurl = new moodle_url('/blocks/links/edit.php', []);
 echo $OUTPUT->single_button($addurl, get_string('addlink', 'block_links'), 'get');
 echo html_writer::end_tag('div');
 echo html_writer::end_tag('div');

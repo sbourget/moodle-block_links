@@ -107,11 +107,12 @@ class link_edit_form extends moodleform {
         $mform->setType('notes', PARAM_TEXT);
         $mform->addRule('notes', null, 'maxlength', 250);
 
-        $mform->addElement('select',
-                'defaultshow',
-                get_string('defaultshow', 'block_links'),
-                [BLOCK_LINKS_SHOWLINK => get_string('yes'), BLOCK_LINKS_HIDELINK => get_string('no')]
-            );
+        $mform->addElement(
+            'select',
+            'defaultshow',
+            get_string('defaultshow', 'block_links'),
+            [BLOCK_LINKS_SHOWLINK => get_string('yes'), BLOCK_LINKS_HIDELINK => get_string('no')]
+        );
 
         $mform->setType('defaultshow', PARAM_INT);
         $mform->setDefault('defaultshow', $this->defaultshow);
@@ -119,7 +120,7 @@ class link_edit_form extends moodleform {
         $options = [];
         $options['All'] = get_string('all', 'block_links');
 
-        switch($blockconfig->profile_field) {
+        switch ($blockconfig->profile_field) {
             case BLOCK_LINKS_INSTITUTION:
                 $sql = "SELECT DISTINCT institution FROM {user} ORDER BY institution";
                 $categories = $DB->get_records_sql($sql);
@@ -193,5 +194,4 @@ class link_edit_form extends moodleform {
 
         $this->add_action_buttons(true);
     }
-
 }

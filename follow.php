@@ -21,11 +21,12 @@
  * @copyright 2016 Stephen Bourget
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
 require_once('../../config.php');
 require_once($CFG->dirroot . '/blocks/links/lib.php');
 
 $id = required_param('id', PARAM_INT);
-$record = $DB->get_record('block_links', array('id' => $id), '*', MUST_EXIST);
+$record = $DB->get_record('block_links', ['id' => $id], '*', MUST_EXIST);
 require_login();
 
 // Verify link is actually available, and user can follow it.

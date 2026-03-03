@@ -27,7 +27,7 @@
  */
 
 defined('MOODLE_INTERNAL') || die();
-require_once($CFG->dirroot.'/blocks/links/lib.php');
+require_once($CFG->dirroot . '/blocks/links/lib.php');
 
 /**
  * Block links class definition.
@@ -40,7 +40,6 @@ require_once($CFG->dirroot.'/blocks/links/lib.php');
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class block_links extends block_list {
-
     /**
      * Core function used to initialize the block.
      */
@@ -70,13 +69,13 @@ class block_links extends block_list {
         }
 
         $this->content = new stdClass();
-        $this->content->items = array();
-        $this->content->icons = array();
+        $this->content->items = [];
+        $this->content->icons = [];
         $this->content->footer = '';
 
-        $rs = $DB->get_records('block_links', array('defaultshow' => BLOCK_LINKS_SHOWLINK), 'linktext');
+        $rs = $DB->get_records('block_links', ['defaultshow' => BLOCK_LINKS_SHOWLINK], 'linktext');
         if (!is_array($rs)) {
-            $rs = array();
+            $rs = [];
         }
 
         $link = new stdClass();
@@ -94,9 +93,9 @@ class block_links extends block_list {
         }
         if ((has_capability('moodle/site:manageblocks', $context)) && (has_capability('block/links:managelinks', $context))) {
             $link->url = new moodle_url('/blocks/links/config_global_action.php');
-            $link->linktext = html_writer::tag('span', get_string('managelinks', 'block_links'), array('class' => 'links-bold'));
+            $link->linktext = html_writer::tag('span', get_string('managelinks', 'block_links'), ['class' => 'links-bold']);
             $icon = $OUTPUT->pix_icon('web', '', 'block_links');
-            $this->content->items[] = $icon . html_writer::tag('a', $link->linktext, array('href' => $link->url));
+            $this->content->items[] = $icon . html_writer::tag('a', $link->linktext, ['href' => $link->url]);
         }
 
         return $this->content;
@@ -110,10 +109,10 @@ class block_links extends block_list {
         global $OUTPUT;
         $blockconfig = get_config('block_links');
 
-        $url = new moodle_url('/blocks/links/follow.php', array('id' => $link->id));
-        $linktext = html_writer::tag('a', $link->linktext, array('href' => $url, 'target' => $blockconfig->link_target));
+        $url = new moodle_url('/blocks/links/follow.php', ['id' => $link->id]);
+        $linktext = html_writer::tag('a', $link->linktext, ['href' => $url, 'target' => $blockconfig->link_target]);
         if (!empty($link->notes)) {
-            $linktext .= ' '. html_writer::tag('span', $link->notes, array('class' => 'links-italic'));
+            $linktext .= ' '. html_writer::tag('span', $link->notes, ['class' => 'links-italic']);
         }
         $icon = $OUTPUT->pix_icon('web', '', 'block_links');
         $this->content->items[] = $icon . $linktext;
@@ -121,10 +120,9 @@ class block_links extends block_list {
     }
 
     /**
-     * Core function used to identify if the block has a config page.
+     * Core function used to identify if the block has a configuration page.
      */
     public function has_config() {
         return true;
     }
-
 }
