@@ -30,7 +30,6 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class backup_links_block_structure_step extends backup_block_structure_step {
-
     /**
      * Define the structure for the links block.
      * @return void
@@ -39,12 +38,11 @@ class backup_links_block_structure_step extends backup_block_structure_step {
 
         // Define each element separated.
 
-        $link = new backup_nested_element('link', null, array(
-            'id', 'linktext', 'url', 'notes', 'defaultshow', 'department'));
+        $link = new backup_nested_element('link', null, ['id', 'linktext', 'url', 'notes', 'defaultshow', 'department']);
 
         // Define sources.
 
-        $link->set_source_sql("SELECT * FROM {block_links}", array());
+        $link->set_source_sql("SELECT * FROM {block_links}", []);
 
         // Annotations (none).
 

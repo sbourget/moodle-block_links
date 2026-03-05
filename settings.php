@@ -26,29 +26,44 @@ defined('MOODLE_INTERNAL') || die;
 
 if ($ADMIN->fulltree) {
     // Load Constants.
-    require_once($CFG->dirroot.'/blocks/links/lib.php');
+    require_once($CFG->dirroot . '/blocks/links/lib.php');
 
-    $settings->add(new admin_setting_configtext('block_links/default_title', get_string('blocktitle', 'block_links'),
-                       get_string('blocktitle_desc', 'block_links'), get_string('blockname', 'block_links'), PARAM_TEXT));
+    $settings->add(new admin_setting_configtext(
+        'block_links/default_title',
+        get_string('blocktitle', 'block_links'),
+        get_string('blocktitle_desc', 'block_links'),
+        get_string('blockname', 'block_links'),
+        PARAM_TEXT)
+    );
 
-    $options = array();
+    $options = [];
     $options[BLOCK_LINKS_CITY] = get_string('city', 'moodle');
     $options[BLOCK_LINKS_COUNTRY] = get_string('country', 'moodle');
     $options[BLOCK_LINKS_DEPARTMENT] = get_string('department', 'moodle');
     $options[BLOCK_LINKS_DESCRIPTION] = get_string('description', 'moodle');
     $options[BLOCK_LINKS_INSTITUTION] = get_string('institution', 'moodle');
 
-    $settings->add(new admin_setting_configselect('block_links/profile_field', get_string('profilefield', 'block_links'),
-                   get_string('profilefield_desc', 'block_links'), BLOCK_LINKS_INSTITUTION, $options));
+    $settings->add(new admin_setting_configselect(
+        'block_links/profile_field',
+        get_string('profilefield', 'block_links'),
+        get_string('profilefield_desc', 'block_links'),
+        BLOCK_LINKS_INSTITUTION,
+        $options)
+    );
 
-    $options = array();
+    $options = [];
     $options[BLOCK_LINKS_WINDOW_NEW] = get_string('newwindow', 'block_links');
     $options[BLOCK_LINKS_WINDOW_PARENT] = get_string('parentwindow', 'block_links');
     $options[BLOCK_LINKS_WINDOW_SELF] = get_string('selfwindow', 'block_links');
-    $settings->add(new admin_setting_configselect('block_links/link_target', get_string('linktarget', 'block_links'),
-                   get_string('linktarget_desc', 'block_links'), BLOCK_LINKS_WINDOW_NEW, $options));
+    $settings->add(new admin_setting_configselect(
+        'block_links/link_target',
+        get_string('linktarget', 'block_links'),
+        get_string('linktarget_desc', 'block_links'),
+        BLOCK_LINKS_WINDOW_NEW,
+        $options)
+    );
 
     $url = new moodle_url('/blocks/links/config_global_action.php');
-    $link = '<a href="'.$url.'">'.get_string('managelinks', 'block_links').'</a>';
+    $link = '<a href="' . $url . '">' . get_string('managelinks', 'block_links').'</a>';
     $settings->add(new admin_setting_heading('block_links_addheading', '', $link));
 }

@@ -14,7 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-
 /**
  * This block generates a simple list of links based on the users profile.
  *
@@ -34,7 +33,6 @@ require_once($CFG->dirroot . '/blocks/links/backup/moodle2/backup_links_stepslib
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class backup_links_block_task extends backup_block_task {
-
     /**
      * Define (add) particular settings this block can have
      */
@@ -53,14 +51,14 @@ class backup_links_block_task extends backup_block_task {
      * Define the associated file areas
      */
     public function get_fileareas() {
-        return array(); // No associated fileareas.
+        return []; // No associated fileareas.
     }
 
     /**
      * Define special handling of configdata.
      */
     public function get_configdata_encoded_attributes() {
-        return array(); // No special handling of configdata.
+        return []; // No special handling of configdata.
     }
 
     /**

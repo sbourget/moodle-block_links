@@ -58,7 +58,7 @@ function block_links_check_permissions($link) {
     // Do they match the user profile restriction?.
     $blockconfig = get_config('block_links');
 
-    switch($blockconfig->profile_field) {
+    switch ($blockconfig->profile_field) {
         case BLOCK_LINKS_INSTITUTION:
             if ($link->department == $USER->institution) {
                 return true;
@@ -87,7 +87,7 @@ function block_links_check_permissions($link) {
             // TODO: CONVERT THIS TO MUC.
             static $description;
             if (!isset($description)) {
-                $description = $DB->get_field('user', 'description', array('id' => $USER->id));
+                $description = $DB->get_field('user', 'description', ['id' => $USER->id]);
                 $description = clean_param($description, PARAM_NOTAGS);
             }
             if ($link->department == $description) {
@@ -99,5 +99,4 @@ function block_links_check_permissions($link) {
             return false;
     }
     return false;
-
 }

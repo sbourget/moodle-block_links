@@ -27,7 +27,7 @@
  * @param int $oldversion The old version of the links block
  * @return bool
  */
-function xmldb_block_links_upgrade($oldversion=0) {
+function xmldb_block_links_upgrade($oldversion = 0) {
 
     global $CFG, $DB;
     $dbman = $DB->get_manager();
@@ -51,7 +51,6 @@ function xmldb_block_links_upgrade($oldversion=0) {
     }
 
     if ($oldversion < 2018040300) {
-
         // Changing precision of field url on table block_links to (255).
         $table = new xmldb_table('block_links');
         $field = new xmldb_field('url', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'linktext');
@@ -64,7 +63,6 @@ function xmldb_block_links_upgrade($oldversion=0) {
     }
 
     if ($oldversion < 2018040301) {
-
         // Changing precision of field notes on table block_links to (255).
         $table = new xmldb_table('block_links');
         $field = new xmldb_field('notes', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'url');
@@ -77,7 +75,6 @@ function xmldb_block_links_upgrade($oldversion=0) {
     }
 
     if ($oldversion < 2018040302) {
-
         // Changing precision of field department on table block_links to (255).
         $table = new xmldb_table('block_links');
         $field = new xmldb_field('department', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'defaultshow');
@@ -90,7 +87,6 @@ function xmldb_block_links_upgrade($oldversion=0) {
     }
 
     if ($oldversion < 2018040303) {
-
         // Changing precision of field linktext on table block_links to (255).
         $table = new xmldb_table('block_links');
         $field = new xmldb_field('linktext', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'id');

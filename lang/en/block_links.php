@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * Strings for block_links, language 'en'
  *
@@ -36,11 +37,11 @@ $string['display'] = 'Display';
 $string['editlink'] = 'Update link';
 $string['eventlinkadded'] = 'Website link added';
 $string['eventlinkdeleted'] = 'Website link deleted';
-$string['eventlinkupdated'] = 'Website link updated';
 $string['eventlinkfollowed'] = 'Website link followed';
+$string['eventlinkupdated'] = 'Website link updated';
 $string['links'] = 'Links';
-$string['links:managelinks'] = 'Add / Edit links';
 $string['links:addinstance'] = 'Add the links block';
+$string['links:managelinks'] = 'Add / Edit links';
 $string['links:myaddinstance'] = 'Add the links block to my home';
 $string['linktarget'] = 'Link target';
 $string['linktarget_desc'] = 'How should the links should open';

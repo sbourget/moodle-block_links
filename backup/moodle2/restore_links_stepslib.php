@@ -14,7 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-
 /**
  * This block generates a simple list of links based on the users profile.
  *
@@ -31,7 +30,6 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class restore_links_block_structure_step extends restore_structure_step {
-
     /**
      * Define the structure of the restore workflow.
      *
@@ -39,7 +37,7 @@ class restore_links_block_structure_step extends restore_structure_step {
      */
     protected function define_structure() {
 
-        $paths = array();
+        $paths = [];
 
         $paths[] = new restore_path_element('block', '/block', true);
         $paths[] = new restore_path_element('link', '/block/link');
@@ -75,11 +73,9 @@ class restore_links_block_structure_step extends restore_structure_step {
                 if ($linkid = $DB->get_field_select('block_links', 'id', $select, $params, IGNORE_MULTIPLE)) {
                     // The record exists.
                     unset($linkid);
-
                 } else {
                     // The link doesn't exist, create it.
                     $linkid = $DB->insert_record('block_links', $link);
-
                 }
             }
         }

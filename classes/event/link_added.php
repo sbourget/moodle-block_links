@@ -97,6 +97,6 @@ class link_added extends \core\event\base {
      * @return array
      */
     public static function get_objectid_mapping() {
-        return array('db' => 'block_links', 'restore' => 'block_links');
+        return ['db' => 'block_links', 'restore' => 'block_links'];
     }
 }

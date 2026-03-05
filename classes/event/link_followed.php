@@ -73,7 +73,7 @@ class link_followed extends \core\event\base {
      * @return \moodle_url
      */
     public function get_url() {
-        return new \moodle_url("/blocks/links/follow.php", array('id' => $this->objectid));
+        return new \moodle_url("/blocks/links/follow.php", ['id' => $this->objectid]);
     }
 
 
@@ -97,7 +97,6 @@ class link_followed extends \core\event\base {
      * @return array
      */
     public static function get_objectid_mapping() {
-        return array('db' => 'block_links', 'restore' => 'block_links');
+        return ['db' => 'block_links', 'restore' => 'block_links'];
     }
 }
-
