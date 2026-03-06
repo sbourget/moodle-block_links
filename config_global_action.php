@@ -133,7 +133,7 @@ foreach ($rs as $index => $link) {
         $link->notes,
         $show,
         $department,
-        $icons
+        $icons,
     ]);
 }
 

@@ -24,7 +24,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$capabilities = array(
+$capabilities = [
 
     // New standard capability 'addinstance'.
     'block/links:addinstance' => [
@@ -32,7 +32,7 @@ $capabilities = array(
         'contextlevel'  => CONTEXT_COURSE,
         'archetypes'    => [
             'editingteacher'    => CAP_ALLOW,
-            'manager'           => CAP_ALLOW
+            'manager'           => CAP_ALLOW,
         ],
         'clonepermissionsfrom'  => 'moodle/site:manageblocks'
     ],
@@ -42,9 +42,9 @@ $capabilities = array(
         'captype' => 'write',
         'contextlevel' => CONTEXT_SYSTEM,
         'archetypes' => [
-            'user' => CAP_ALLOW
+            'user' => CAP_ALLOW,
         ],
-        'clonepermissionsfrom' => 'moodle/my:manageblocks'
+        'clonepermissionsfrom' => 'moodle/my:manageblocks',
     ],
 
     'block/links:managelinks' => [
@@ -54,8 +54,8 @@ $capabilities = array(
         'captype' => 'write',
         'contextlevel' => CONTEXT_SYSTEM,
         'legacy' => [
-            'manager' => CAP_ALLOW
-        ]
-    ]
+            'manager' => CAP_ALLOW,
+        ],
+    ],
 
-);
+];
