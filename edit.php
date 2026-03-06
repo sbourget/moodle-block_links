@@ -21,6 +21,7 @@
  * @copyright 2013 Stephen Bourget
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
 require_once('../../config.php');
 require_once('edit_form.php');
 
@@ -32,51 +33,46 @@ if ((!has_capability('moodle/site:manageblocks', $context)) || (!has_capability(
     throw new moodle_exception('accessdenied', 'block_links');
 }
 $PAGE->set_context($context);
-$returnurl = new moodle_url('/blocks/links/config_global_action.php', array());
-$PAGE->set_url('/blocks/links/edit.php', array());
+$returnurl = new moodle_url('/blocks/links/config_global_action.php', []);
+$PAGE->set_url('/blocks/links/edit.php', []);
 $PAGE->set_pagelayout('standard');
 if ($id > 0) {
     // Updating an existing record.
     $strtitle = get_string('editlink', 'block_links');
 
     $mform = new link_edit_form($PAGE->url, false, $id);
-    $record = $DB->get_record('block_links', array('id' => $id), '*', MUST_EXIST);
+    $record = $DB->get_record('block_links', ['id' => $id], '*', MUST_EXIST);
     $mform->set_data($record);
 } else {
     // Adding a new record.
     $strtitle = get_string('addlink', 'block_links');
 
     $mform = new link_edit_form($PAGE->url, true, $id);
-    $record = new stdClass;
+    $record = new stdClass();
     $record->id = 0;
     $mform->set_data($record);
 }
 if ($mform->is_cancelled()) {
-
     redirect($returnurl);
-
 } else if ($data = $mform->get_data()) {
-
     if ($data->id == 0) {
         $id = $DB->insert_record('block_links', $data);
         // Trigger event about adding the link.
-        $params = array('context' => $context, 'objectid' => $id);
+        $params = ['context' => $context, 'objectid' => $id];
         $event = \block_links\event\link_added::create($params);
         $event->add_record_snapshot('block_links', $data);
         $event->trigger();
     } else if (isset($data->id) && (int)$data->id > 0) {
         $id = $DB->update_record('block_links', $data);
         // Trigger event about updating the link.
-        $params = array('context' => $context, 'objectid' => $data->id);
+        $params = ['context' => $context, 'objectid' => $data->id];
         $event = \block_links\event\link_updated::create($params);
         $event->add_record_snapshot('block_links', $data);
         $event->trigger();
     }
 
     redirect($returnurl);
-
 } else {
-
     $strmanagelinks = get_string('managelinks', 'block_links');
     $PAGE->navbar->add(get_string('blocks'));
     $PAGE->navbar->add(get_string('pluginname', 'block_links'), $returnurl);

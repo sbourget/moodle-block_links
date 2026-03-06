@@ -84,7 +84,7 @@ $table->define_headers([
     get_string('notes', 'block_links'),
     get_string('defaultshow', 'block_links'),
     get_string('category', 'block_links'),
-    get_string('actions', 'moodle')
+    get_string('actions', 'moodle'),
 ]);
 $table->define_baseurl($baseurl);
 
@@ -119,17 +119,22 @@ foreach ($rs as $index => $link) {
 
     $deleteurl = new moodle_url('/blocks/links/config_global_action.php', ['delete' => $link->id, 'sesskey' => sesskey()]);
     $deleteicon = new pix_icon('t/delete', get_string('delete'));
-    $deleteaction = $OUTPUT->action_icon($deleteurl, $deleteicon,
-                    new confirm_action(get_string('deletelinkconfirm', 'block_links')));
+    $deleteaction = $OUTPUT->action_icon(
+        $deleteurl,
+        $deleteicon,
+        new confirm_action(get_string('deletelinkconfirm', 'block_links'))
+    );
 
     $icons = $editaction . ' ' . $deleteaction;
 
-    $table->add_data(array($link->linktext,
-                               html_writer::link($link->url, $link->url, ['target' => '_blank']),
-                               $link->notes,
-                               $show,
-                               $department,
-                               $icons));
+    $table->add_data([
+        $link->linktext,
+        html_writer::link($link->url, $link->url, ['target' => '_blank']),
+        $link->notes,
+        $show,
+        $department,
+        $icons
+    ]);
 }
 
 $table->print_html();

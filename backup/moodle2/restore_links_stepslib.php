@@ -67,7 +67,7 @@ class restore_links_block_structure_step extends restore_structure_step {
                 $link = (object)$link;
                 // Look if the same link is available by url.
                 $select = 'url = :url AND linktext = :linktext';
-                $params = array('url' => $link->url, 'linktext' => $link->linktext);
+                $params = ['url' => $link->url, 'linktext' => $link->linktext];
 
                 // The link already exists, use it.
                 if ($linkid = $DB->get_field_select('block_links', 'id', $select, $params, IGNORE_MULTIPLE)) {

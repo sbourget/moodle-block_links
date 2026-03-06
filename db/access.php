@@ -27,35 +27,35 @@ defined('MOODLE_INTERNAL') || die();
 $capabilities = array(
 
     // New standard capability 'addinstance'.
-    'block/links:addinstance' => array(
+    'block/links:addinstance' => [
         'captype'       => 'write',
         'contextlevel'  => CONTEXT_COURSE,
-        'archetypes'    => array(
+        'archetypes'    => [
             'editingteacher'    => CAP_ALLOW,
             'manager'           => CAP_ALLOW
-        ),
+        ],
         'clonepermissionsfrom'  => 'moodle/site:manageblocks'
-    ),
+    ],
 
     // New standard capability 'myaddinstance'.
-    'block/links:myaddinstance' => array(
+    'block/links:myaddinstance' => [
         'captype' => 'write',
         'contextlevel' => CONTEXT_SYSTEM,
-        'archetypes' => array(
+        'archetypes' => [
             'user' => CAP_ALLOW
-        ),
+        ],
         'clonepermissionsfrom' => 'moodle/my:manageblocks'
-    ),
+    ],
 
-    'block/links:managelinks' => array(
+    'block/links:managelinks' => [
 
         'riskbitmask' => RISK_SPAM,
 
         'captype' => 'write',
         'contextlevel' => CONTEXT_SYSTEM,
-        'legacy' => array(
+        'legacy' => [
             'manager' => CAP_ALLOW
-        )
-    )
+        ]
+    ]
 
 );
